@@ -7,8 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;500&family=Roboto:wght@100;300;400&display=swap">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <style>
   :root {
     --bg: #f2ede7;
@@ -16,8 +14,8 @@
     --bg-card: rgba(255, 255, 255, 0.3);
     --text: #161616;
     --text-emp: #333;
-    --text-mute: #535353;
-    --text-faint: #b1b1b1;
+    --text-mute: #4a4a4a;
+    --text-faint: #8a8580;
     --line: #e5e5e5;
     --inverse: #ffffff;
     --noise-opacity: 0.035;
@@ -33,8 +31,8 @@
     --bg-card: rgba(255, 255, 255, 0.03);
     --text: #f2ede7;
     --text-emp: #d8d3cd;
-    --text-mute: #a8a39d;
-    --text-faint: #5a554f;
+    --text-mute: #b8b3ad;
+    --text-faint: #6a6560;
     --line: #2a2a2a;
     --inverse: #161616;
     --noise-opacity: 0.05;
@@ -45,7 +43,9 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Mencegah judul tertutup navbar saat klik anchor */
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden; /* Cegah scroll kanan kiri */
   }
 
   body {
@@ -54,14 +54,21 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Cegah scroll kanan kiri */
+    overflow-wrap: break-word; /* Patahkan kata panjang */
     -webkit-font-smoothing: antialiased;
     transition: background 0.6s var(--ease-quiet), color 0.6s var(--ease-quiet);
   }
 
-  @media (pointer: fine) {
-    body { cursor: none; }
-    a, button { cursor: none; }
+  img { max-width: 100%; display: block; }
+
+  /* Sembunyikan kursor default hanya jika body memiliki class 'cursor-active' */
+  body.cursor-active, body.cursor-active a, body.cursor-active button { 
+    cursor: none; 
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
   }
 
   ::selection {
@@ -135,6 +142,7 @@
     font-size: 1rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
+    flex-shrink: 0;
   }
   .nav-logo span { color: var(--text-faint); }
   .nav-menu {
@@ -169,6 +177,27 @@
     color: var(--text-faint);
   }
 
+  /* Tombol Toggle Tema di Navbar */
+  #nav-theme-toggle {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--line);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text);
+    flex-shrink: 0;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  #nav-theme-toggle:hover { border-color: var(--text); }
+  #nav-theme-toggle .icon-moon { display: none; }
+  [data-theme="dark"] #nav-theme-toggle .icon-sun { display: none; }
+  [data-theme="dark"] #nav-theme-toggle .icon-moon { display: block; }
+
   .nav-toggle {
     display: none;
     flex-direction: column;
@@ -178,6 +207,8 @@
     padding: 8px;
     cursor: pointer;
     z-index: 101;
+    margin-left: 1rem;
+    flex-shrink: 0;
   }
   .nav-toggle span {
     width: 26px;
@@ -273,7 +304,7 @@
   .hero-title {
     font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(3rem, 8vw, 8rem);
+    font-size: clamp(2.5rem, 8vw, 8rem); /* Dirubah start dari 2.5rem agar muat di mobile */
     line-height: 0.98;
     letter-spacing: -0.02em;
     margin-bottom: 2.5rem;
@@ -325,12 +356,9 @@
     max-width: 420px;
     margin-left: auto;
     position: relative;
-  }
-  .hero-portrait .photo-placeholder {
-    height: 100%;
+    overflow: hidden;
   }
 
-  /* Posisi CTA di hero */
   .hero-cta-wrap {
     margin-top: 3rem;
     display: flex;
@@ -347,7 +375,7 @@
     .hero-eyebrow { margin-bottom: 2rem; }
     .hero-title { 
       margin-bottom: 1.8rem; 
-      font-size: clamp(2.2rem, 8vw, 3.5rem); 
+      font-size: clamp(2rem, 10vw, 3.5rem); /* Fix mobile size */
     }
     .hero-subtitle { margin-bottom: 2.2rem; }
     .hero-cta-wrap { margin-top: 2rem; }
@@ -497,11 +525,10 @@
     text-align: right;
   }
   .section-desc {
-    max-width: 1400px;
+    max-width: 50rem;
     margin: 0 auto 5rem;
     font-size: 1.1rem;
     color: var(--text-mute);
-    max-width: 50rem;
     line-height: 1.7;
   }
 
@@ -569,6 +596,7 @@
     aspect-ratio: 4 / 5;
     position: sticky;
     top: 8rem;
+    overflow: hidden;
   }
   .about-content p {
     font-size: 1.05rem;
@@ -740,10 +768,6 @@
     overflow: hidden;
     position: relative;
   }
-  .work-card-image .photo-placeholder {
-    height: 100%;
-    min-height: 0;
-  }
   .work-card-title {
     font-family: 'Oswald';
     font-weight: 300;
@@ -796,7 +820,7 @@
     }
     .works-track {
       overflow-x: auto;
-      padding: 1rem 2rem 2rem;
+      padding: 1rem 1.5rem 2rem;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
@@ -845,10 +869,6 @@
     opacity: 0.5;
   }
   .gallery-tile:hover { transform: scale(1.02); }
-  .gallery-tile .photo-placeholder {
-    height: 100%;
-    min-height: 0;
-  }
   .gallery-tile-label {
     position: absolute;
     bottom: 1rem; left: 1rem;
@@ -889,16 +909,19 @@
     .gallery-tile-label { opacity: 1; transform: translateY(0); font-size: 0.65rem; }
   }
 
-  /* Section video tontonan */
+  /* Section video tontonan (FIXED DARK MODE) */
   .tontonan {
     padding: 8rem 2.5rem;
-    background: #1a1a1a;
-    color: var(--inverse);
+    background: #111; /* Selalu dark untuk tema cinema */
+    color: #f2ede7;
+  }
+  [data-theme="dark"] .tontonan {
+    background: #0a0a0a; /* Sedikit lebih gelap dari bg dark mode */
   }
   .tontonan .section-header { border-bottom-color: rgba(255, 255, 255, 0.15); }
   .tontonan .section-number,
   .tontonan .section-tag { color: rgba(255, 255, 255, 0.5); }
-  .tontonan .section-title { color: var(--inverse); }
+  .tontonan .section-title { color: #f2ede7; }
   .tontonan .section-title .italic { color: rgba(255, 255, 255, 0.55); }
   .video-feature {
     max-width: 1400px;
@@ -997,7 +1020,7 @@
     font-weight: 200;
     font-size: clamp(1.6rem, 3vw, 2.5rem);
     line-height: 1.1;
-    color: var(--inverse);
+    color: #f2ede7;
   }
   .video-feature-title .italic {
     font-style: italic;
@@ -1039,7 +1062,7 @@
     font-weight: 300;
     font-size: 1.25rem;
     line-height: 1.2;
-    color: var(--inverse);
+    color: #f2ede7;
     margin-bottom: 0.6rem;
   }
   .video-card-desc {
@@ -1221,7 +1244,6 @@
     isolation: isolate;
   }
 
-  /* Sweep fill background pas hover */
   .cta-magnetic::before {
     content: '';
     position: absolute;
@@ -1238,7 +1260,6 @@
     color: var(--bg);
   }
 
-  /* Text swap dua lapis */
   .cta-text-wrap {
     position: relative;
     overflow: hidden;
@@ -1266,7 +1287,6 @@
     transform: translateY(-100%);
   }
 
-  /* Panah geser pas hover */
   .cta-arrow {
     position: relative;
     width: 30px;
@@ -1290,7 +1310,6 @@
   .cta-magnetic:hover .cta-arrow svg:nth-child(1) { transform: translateX(110%); }
   .cta-magnetic:hover .cta-arrow svg:nth-child(2) { transform: translateX(0); }
 
-  /* Variant large buat contact */
   .cta-magnetic.cta-large {
     padding: 1.8rem 3.5rem;
     font-size: 1.15rem;
@@ -1305,12 +1324,10 @@
     height: 14px;
   }
 
-  /* State magnetic aktif */
   .cta-magnetic.is-magnetic {
     transition: color 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet), transform 0.3s var(--ease-quiet);
   }
 
-  /* Micro CTA footer */
   .cta-micro {
     display: inline-flex;
     align-items: center;
@@ -1520,7 +1537,7 @@
     font-weight: 200;
     font-size: clamp(8rem, 18vw, 16rem);
     color: var(--text);
-    opacity: 0.03;
+    opacity: 0.06; /* Naikkan opacity */
     pointer-events: none;
     user-select: none;
     letter-spacing: -0.02em;
@@ -1571,7 +1588,6 @@
     .footer-right { text-align: center; }
   }
 
-  /* Animasi fade up on scroll */
   .fade-up {
     opacity: 0;
     transform: translateY(40px);
@@ -1613,6 +1629,12 @@
     <li><a href="#contact">Kontak</a></li>
   </ul>
   <div class="nav-meta">Portofolio · Web Dev</div>
+  
+  <button id="nav-theme-toggle" aria-label="Ganti tema warna">
+    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </button>
+
   <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu">
     <span></span>
     <span></span>
@@ -1701,7 +1723,7 @@
     <div class="index-item fade-up">
       <div class="index-number">06</div>
       <div class="index-label">Proyek Pribadi</div>
-      <div class="index-desc">DF Bank, DF University, DF Komik, DF Links, DF Bank, DF Scenery.</div>
+      <div class="index-desc">DF Bank, DF University, DF Komik, DF Links, DF Scenery.</div>
     </div>
     <div class="index-item fade-up">
       <div class="index-number">10+</div>
@@ -2037,11 +2059,11 @@
       </div>
       <div class="contact-row fade-up">
         <div class="contact-label">Telegram</div>
-        <a class="contact-value" href="#" target="_blank" rel="noopener">@davidfirdaus</a>
+        <a class="contact-value" href="https://t.me/davidfirdaus" target="_blank" rel="noopener">@davidfirdaus</a>
       </div>
       <div class="contact-row fade-up">
         <div class="contact-label">GitHub</div>
-        <a class="contact-value" href="#" target="_blank" rel="noopener">github.com/davidfirdaus08</a>
+        <a class="contact-value" href="https://github.com/davidfirdaus08" target="_blank" rel="noopener">github.com/davidfirdaus08</a>
       </div>
       <div class="contact-row fade-up">
         <div class="contact-label">Lokasi</div>
@@ -2093,10 +2115,11 @@
 </footer>
 
 <script>
-  // Toggle dark/light mode pake saklar lampu
+  // Toggle dark/light mode pake saklar lampu & tombol navbar
   (function() {
     const html = document.documentElement;
     const lampSwitch = document.getElementById('lamp-switch');
+    const navToggle = document.getElementById('nav-theme-toggle');
     const labelLight = document.getElementById('lamp-label-light');
     const labelDark = document.getElementById('lamp-label-dark');
     const lampStatus = document.getElementById('lamp-status');
@@ -2111,49 +2134,34 @@
     function applyTheme(theme) {
       html.setAttribute('data-theme', theme);
       const isDark = theme === 'dark';
-      lampSwitch.setAttribute('aria-pressed', isDark);
-      labelLight.classList.toggle('is-active', !isDark);
-      labelDark.classList.toggle('is-active', isDark);
-      lampStatus.textContent = isDark ? 'Mode aktif: Gelap' : 'Mode aktif: Terang';
-      lampWatermark.textContent = isDark ? 'GELAP' : 'TERANG';
+      
+      if (lampSwitch) lampSwitch.setAttribute('aria-pressed', isDark);
+      if (labelLight) labelLight.classList.toggle('is-active', !isDark);
+      if (labelDark) labelDark.classList.toggle('is-active', isDark);
+      if (lampStatus) lampStatus.textContent = isDark ? 'Mode aktif: Gelap' : 'Mode aktif: Terang';
+      if (lampWatermark) lampWatermark.textContent = isDark ? 'GELAP' : 'TERANG';
     }
 
-    lampSwitch.addEventListener('click', () => {
+    function toggleTheme() {
       const current = html.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
       applyTheme(next);
       localStorage.setItem('theme', next);
-    });
-
-    lampSwitch.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        lampSwitch.click();
-      }
-    });
-  })();
-
-  // Mobile nav hamburger
-  (function() {
-    const toggle = document.getElementById('nav-toggle');
-    const overlay = document.getElementById('nav-overlay');
-    if (!toggle || !overlay) return;
-
-    function closeNav() {
-      toggle.classList.remove('is-open');
-      overlay.classList.remove('is-open');
-      document.body.style.overflow = '';
     }
 
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('is-open');
-      overlay.classList.toggle('is-open', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
+    if (lampSwitch) {
+      lampSwitch.addEventListener('click', toggleTheme);
+      lampSwitch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleTheme();
+        }
+      });
+    }
 
-    overlay.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeNav);
-    });
+    if (navToggle) {
+      navToggle.addEventListener('click', toggleTheme);
+    }
   })();
 
   // Cursor custom, desktop doang
@@ -2163,6 +2171,8 @@
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.body.classList.add('cursor-active'); 
 
     window.addEventListener('mousemove', e => {
       mx = e.clientX;
@@ -2187,7 +2197,7 @@
     }
     tick();
 
-    const hoverables = 'a, button, .work-card, .gallery-tile, .video-frame, .expertise-item, .photo-placeholder, .lamp-switch';
+    const hoverables = 'a, button, .work-card, .gallery-tile, .video-frame, .expertise-item, .photo-placeholder, .lamp-switch, #nav-theme-toggle';
     document.querySelectorAll(hoverables).forEach(el => {
       el.addEventListener('mouseenter', () => {
         ring.style.width = '60px';
@@ -2202,22 +2212,18 @@
 
   // Reveal text hero pake line mask
   window.addEventListener('load', () => {
+    const lines = document.querySelectorAll('.line');
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.line').forEach(el => el.style.transform = 'translateY(0)');
+      lines.forEach(el => el.style.transform = 'translateY(0)');
       return;
     }
 
-    if (typeof gsap !== 'undefined') {
-      gsap.to('[data-line1]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.3 });
-      gsap.to('[data-line2]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.45 });
-    } else {
-      document.querySelectorAll('.line').forEach((el, i) => {
-        setTimeout(() => {
-          el.style.transition = 'transform 1.2s cubic-bezier(.22,1,.36,1)';
-          el.style.transform = 'translateY(0)';
-        }, 300 + i * 150);
-      });
-    }
+    lines.forEach((el, i) => {
+      setTimeout(() => {
+        el.style.transition = 'transform 1.2s cubic-bezier(.22,1,.36,1)';
+        el.style.transform = 'translateY(0)';
+      }, 300 + i * 150);
+    });
   });
 
   // Fade up pas scroll masuk viewport
