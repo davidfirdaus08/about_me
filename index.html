@@ -69,7 +69,7 @@
     color: var(--bg);
   }
 
-  /* ============== NOISE OVERLAY ============== */
+  /* Noise overlay tekstur grain */
   .noise-overlay {
     position: fixed;
     inset: 0;
@@ -87,7 +87,7 @@
     80%     { transform: translate(-15%, 0); }
   }
 
-  /* ============== CUSTOM CURSOR ============== */
+  /* Cursor custom dot + ring */
   .cursor-dot, .cursor-ring {
     position: fixed;
     top: 0; left: 0;
@@ -114,7 +114,7 @@
     .cursor-dot, .cursor-ring { display: none; }
   }
 
-  /* ============== NAV ============== */
+  /* Navbar */
   .nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -234,7 +234,7 @@
     .nav-toggle { display: flex; }
   }
 
-  /* ============== HERO ============== */
+  /* Hero section */
   .hero {
     min-height: 100vh;
     padding: 9rem 2.5rem 4rem;
@@ -330,7 +330,7 @@
     height: 100%;
   }
 
-  /* Hero CTA placement */
+  /* Posisi CTA di hero */
   .hero-cta-wrap {
     margin-top: 3rem;
     display: flex;
@@ -350,7 +350,7 @@
     .hero-cta-wrap { margin-top: 2rem; }
   }
 
-  /* ============== PHOTO PLACEHOLDER ============== */
+  /* Style placeholder foto */
   .photo-placeholder {
     width: 100%;
     height: 100%;
@@ -413,7 +413,7 @@
     line-height: 1.5;
   }
 
-  /* ============== MARQUEE ============== */
+  /* Marquee teks berjalan */
   .marquee {
     overflow: hidden;
     border-top: 1px solid var(--line);
@@ -453,7 +453,7 @@
     .marquee-track { gap: 2.5rem; }
   }
 
-  /* ============== SECTION GENERIC ============== */
+  /* Layout section umum */
   section {
     padding: 8rem 2.5rem;
     position: relative;
@@ -512,7 +512,7 @@
     .section-tag { text-align: left; }
   }
 
-  /* ============== INDEX ============== */
+  /* Index angka statistik */
   .index {
     padding: 6rem 2.5rem;
     border-bottom: 1px solid var(--line);
@@ -553,7 +553,7 @@
     .index-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   }
 
-  /* ============== ABOUT ============== */
+  /* About section */
   .about-grid {
     max-width: 1400px;
     margin: 0 auto;
@@ -627,7 +627,7 @@
     .about-content p:first-child::first-letter { font-size: 3.5rem; }
   }
 
-  /* ============== EXPERTISE ============== */
+  /* List keahlian */
   .expertise-list {
     max-width: 1400px;
     margin: 0 auto;
@@ -685,7 +685,7 @@
     .expertise-year { font-size: 0.75rem; margin-top: 0.5rem; }
   }
 
-  /* ============== WORKS (HORIZONTAL PIN) ============== */
+  /* Works - horizontal pin scroll */
   .works-section { padding: 0; }
   .works-header { padding: 8rem 2.5rem 4rem; }
   .works-viewport {
@@ -807,7 +807,7 @@
     .works-progress, .works-progress-label { display: none; }
   }
 
-  /* ============== GALLERY (MOSAIC) ============== */
+  /* Gallery mosaic grid */
   .gallery-section {
     padding: 8rem 2.5rem;
     background: var(--bg-soft);
@@ -884,7 +884,7 @@
     .gallery-tile-label { opacity: 1; transform: translateY(0); font-size: 0.65rem; }
   }
 
-  /* ============== TONTONAN (VIDEO) ============== */
+  /* Section video tontonan */
   .tontonan {
     padding: 8rem 2.5rem;
     background: #1a1a1a;
@@ -1050,7 +1050,7 @@
     .video-card-title { font-size: 1.1rem; }
   }
 
-  /* ============== PHILOSOPHY ============== */
+  /* Quote filosofi */
   .philosophy {
     padding: 10rem 2.5rem;
     text-align: center;
@@ -1097,7 +1097,7 @@
     .philosophy-attribute { margin-top: 2rem; }
   }
 
-  /* ============== CONTACT ============== */
+  /* Contact section */
   .contact {
     padding: 10rem 2.5rem 6rem;
     border-top: 1px solid var(--line);
@@ -1172,7 +1172,7 @@
     .contact-value { font-size: 0.98rem; }
   }
 
-  /* ============== MAGNETIC CTA BUTTON ============== */
+  /* Tombol CTA magnetik */
   .cta-kicker {
     font-family: 'Roboto';
     font-weight: 400;
@@ -1212,7 +1212,7 @@
     isolation: isolate;
   }
 
-  /* Sweep fill (sapuan background) */
+  /* Sweep fill background pas hover */
   .cta-magnetic::before {
     content: '';
     position: absolute;
@@ -1229,7 +1229,7 @@
     color: var(--bg);
   }
 
-  /* Text swap (dua lapis) */
+  /* Text swap dua lapis */
   .cta-text-wrap {
     position: relative;
     overflow: hidden;
@@ -1257,7 +1257,7 @@
     transform: translateY(-100%);
   }
 
-  /* Arrow slide (panah meluncur) */
+  /* Panah geser pas hover */
   .cta-arrow {
     position: relative;
     width: 30px;
@@ -1281,7 +1281,7 @@
   .cta-magnetic:hover .cta-arrow svg:nth-child(1) { transform: translateX(110%); }
   .cta-magnetic:hover .cta-arrow svg:nth-child(2) { transform: translateX(0); }
 
-  /* Variant: large (untuk contact) */
+  /* Variant large buat contact */
   .cta-magnetic.cta-large {
     padding: 1.8rem 3.5rem;
     font-size: 1.15rem;
@@ -1296,12 +1296,12 @@
     height: 14px;
   }
 
-  /* Magnetic active state */
+  /* State magnetic aktif */
   .cta-magnetic.is-magnetic {
     transition: color 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet), transform 0.3s var(--ease-quiet);
   }
 
-  /* Footer micro CTA */
+  /* Micro CTA footer */
   .cta-micro {
     display: inline-flex;
     align-items: center;
@@ -1348,7 +1348,7 @@
     }
   }
 
-  /* ============== LAMP SWITCH SECTION ============== */
+  /* Saklar lampu toggle theme */
   .lamp-section {
     padding: 8rem 2.5rem;
     border-top: 1px solid var(--line);
@@ -1533,7 +1533,7 @@
     .lamp-container { gap: 1.4rem; }
   }
 
-  /* ============== FOOTER ============== */
+  /* Footer */
   .footer {
     padding: 3rem 2.5rem;
     border-top: 1px solid var(--line);
@@ -1562,7 +1562,7 @@
     .footer-right { text-align: center; }
   }
 
-  /* ============== FADE UP ============== */
+  /* Animasi fade up on scroll */
   .fade-up {
     opacity: 0;
     transform: translateY(40px);
@@ -1593,7 +1593,7 @@
 <div class="cursor-dot"></div>
 <div class="cursor-ring"></div>
 
-<!-- ============== NAV ============== -->
+<!-- Navbar -->
 <nav class="nav">
   <div class="nav-logo">David Firdaus <span>/ 2026</span></div>
   <ul class="nav-menu">
@@ -1620,7 +1620,7 @@
   </ul>
 </div>
 
-<!-- ============== HERO ============== -->
+<!-- Hero -->
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
@@ -1663,20 +1663,12 @@
     </div>
 
     <div class="hero-portrait">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto kamu di sini</span>
-        <span class="placeholder-hint">Rasio 4:5 · 800 × 1000px<br>Ganti div ini dengan tag &lt;img&gt;</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="Foto David Firdaus" style="width: 100%; height: 100%; object-fit: cover; display: block;">
     </div>
   </div>
 </section>
 
-<!-- ============== MARQUEE ============== -->
+<!-- Marquee -->
 <div class="marquee">
   <div class="marquee-track">
     <div class="marquee-item">Web Development</div>
@@ -1694,7 +1686,7 @@
   </div>
 </div>
 
-<!-- ============== INDEX ============== -->
+<!-- Index -->
 <section class="index">
   <div class="index-grid">
     <div class="index-item fade-up">
@@ -1720,7 +1712,7 @@
   </div>
 </section>
 
-<!-- ============== ABOUT ============== -->
+<!-- About -->
 <section id="about">
   <div class="section-header">
     <div class="section-number fade-up">No. 01</div>
@@ -1730,15 +1722,7 @@
 
   <div class="about-grid">
     <div class="about-photo fade-up">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto kamu di sini</span>
-        <span class="placeholder-hint">Hitam-putih · Rasio 4:5<br>Untuk seksi Tentang</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="Foto David Firdaus" style="width: 100%; height: 100%; object-fit: cover; display: block;">
     </div>
 
     <div class="about-content">
@@ -1766,7 +1750,7 @@
   </div>
 </section>
 
-<!-- ============== EXPERTISE ============== -->
+<!-- Keahlian -->
 <section id="expertise">
   <div class="section-header">
     <div class="section-number fade-up">No. 02</div>
@@ -1814,7 +1798,7 @@
   </div>
 </section>
 
-<!-- ============== WORKS (HORIZONTAL PIN) ============== -->
+<!-- Works -->
 <section id="works" class="works-section">
   <div class="works-header">
     <div class="section-header">
@@ -1834,15 +1818,7 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 01</span><span>Web App</span></div>
           <div class="work-card-image">
-            <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
-              <span class="placeholder-label">Tambah foto karya</span>
-              <span class="placeholder-hint">Rasio 3:4</span>
-            </div>
+            <img src="uploadfoto_ukuran__.jpg" alt="DF Komik Platform Baca Manga" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
           <h3 class="work-card-title">DF Komik<br>Platform Baca Manga</h3>
           <div class="work-card-tag">Web Development · PHP</div>
@@ -1851,15 +1827,7 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 02</span><span>Sistem</span></div>
           <div class="work-card-image">
-            <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
-              <span class="placeholder-label">Tambah foto karya</span>
-              <span class="placeholder-hint">Rasio 3:4</span>
-            </div>
+            <img src="uploadfoto_ukuran__.jpg" alt="DF Bank Manajemen Data" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
           <h3 class="work-card-title">DF Bank<br>Manajemen Data</h3>
           <div class="work-card-tag">Sistem Informasi · MySQL</div>
@@ -1868,15 +1836,7 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 03</span><span>Web App</span></div>
           <div class="work-card-image">
-            <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
-              <span class="placeholder-label">Tambah foto karya</span>
-              <span class="placeholder-hint">Rasio 3:4</span>
-            </div>
+            <img src="uploadfoto_ukuran__.jpg" alt="DF Links Penyingkat Tautan" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
           <h3 class="work-card-title">DF Links<br>Penyingkat Tautan</h3>
           <div class="work-card-tag">Web App · API</div>
@@ -1885,15 +1845,7 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 04</span><span>Eksperimen</span></div>
           <div class="work-card-image">
-            <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
-              <span class="placeholder-label">Tambah foto karya</span>
-              <span class="placeholder-hint">Rasio 3:4</span>
-            </div>
+            <img src="uploadfoto_ukuran__.jpg" alt="DF Scenery Galeri Visual" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
           <h3 class="work-card-title">DF Scenery<br>Galeri Visual</h3>
           <div class="work-card-tag">Web Design · JS</div>
@@ -1909,7 +1861,7 @@
   </div>
 </section>
 
-<!-- ============== GALLERY (MOSAIC) ============== -->
+<!-- Gallery -->
 <section class="gallery-section">
   <div class="section-header">
     <div class="section-number fade-up">No. 04</div>
@@ -1919,75 +1871,33 @@
 
   <div class="gallery-grid" id="gallery-grid">
     <div class="gallery-tile t1">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto di sini</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="DF Komik" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="gallery-tile-label">DF Komik</div>
     </div>
     <div class="gallery-tile t2">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto di sini</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="DF Links" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="gallery-tile-label">DF Links</div>
     </div>
     <div class="gallery-tile t3">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto di sini</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="DF Bank" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="gallery-tile-label">DF Bank</div>
     </div>
     <div class="gallery-tile t4">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto di sini</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="DF Scenery" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="gallery-tile-label">DF Scenery</div>
     </div>
     <div class="gallery-tile t5">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto di sini</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="UI UX Design" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="gallery-tile-label">UI / UX</div>
     </div>
     <div class="gallery-tile t6">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        <span class="placeholder-label">Tambah foto di sini</span>
-      </div>
+      <img src="uploadfoto_ukuran__.jpg" alt="Telegram Bot" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="gallery-tile-label">Telegram Bot</div>
     </div>
   </div>
 </section>
 
-<!-- ============== TONTONAN (VIDEO) ============== -->
+<!-- Video -->
 <section id="tontonan" class="tontonan">
   <div class="section-header">
     <div class="section-number fade-up">No. 05</div>
@@ -2067,7 +1977,7 @@
   </div>
 </section>
 
-<!-- ============== PHILOSOPHY ============== -->
+<!-- Filosofi -->
 <section class="philosophy">
   <div class="watermark watermark-right">DEV</div>
   <p class="philosophy-quote fade-up">
@@ -2076,7 +1986,7 @@
   <div class="philosophy-attribute fade-up">— Filosofi Pengembangan, 2026</div>
 </section>
 
-<!-- ============== CONTACT ============== -->
+<!-- Contact -->
 <section id="contact" class="contact">
   <div class="contact-grid">
     <div>
@@ -2136,7 +2046,7 @@
   </div>
 </section>
 
-<!-- ============== LAMP SWITCH (SAKLER LAMPU) ============== -->
+<!-- Saklar lampu -->
 <section class="lamp-section">
   <div class="lamp-watermark" id="lamp-watermark">TERANG</div>
   <div class="lamp-container">
@@ -2166,7 +2076,7 @@
   </div>
 </section>
 
-<!-- ============== FOOTER ============== -->
+<!-- Footer -->
 <footer class="footer">
   <div class="footer-left">© 2026 — David Firdaus</div>
   <div class="footer-center">Designed & Developed by David Firdaus</div>
@@ -2174,9 +2084,7 @@
 </footer>
 
 <script>
-  // ==============================================
-  // THEME (DARK/LIGHT) — SAKLAR LAMPU
-  // ==============================================
+  // Toggle dark/light mode pake saklar lampu
   (function() {
     const html = document.documentElement;
     const lampSwitch = document.getElementById('lamp-switch');
@@ -2216,9 +2124,7 @@
     });
   })();
 
-  // ==============================================
-  // MOBILE NAV (HAMBURGER)
-  // ==============================================
+  // Mobile nav hamburger
   (function() {
     const toggle = document.getElementById('nav-toggle');
     const overlay = document.getElementById('nav-overlay');
@@ -2241,9 +2147,7 @@
     });
   })();
 
-  // ==============================================
-  // CUSTOM CURSOR (desktop only)
-  // ==============================================
+  // Cursor custom, desktop doang
   (function() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
@@ -2287,9 +2191,7 @@
     });
   })();
 
-  // ==============================================
-  // HERO LINE MASK REVEAL
-  // ==============================================
+  // Reveal text hero pake line mask
   window.addEventListener('load', () => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.querySelectorAll('.line').forEach(el => el.style.transform = 'translateY(0)');
@@ -2309,9 +2211,7 @@
     }
   });
 
-  // ==============================================
-  // FADE UP ON SCROLL
-  // ==============================================
+  // Fade up pas scroll masuk viewport
   (function() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -2325,9 +2225,7 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   })();
 
-  // ==============================================
-  // HORIZONTAL PIN SCROLL (Works) — desktop only
-  // ==============================================
+  // Horizontal pin scroll buat works, desktop only
   (function() {
     if (window.matchMedia('(max-width: 1024px)').matches) return;
 
@@ -2381,9 +2279,7 @@
     }, { passive: true });
   })();
 
-  // ==============================================
-  // GRAYSCALE MOSAIC PUSH-BACK (desktop only)
-  // ==============================================
+  // Mosaic push-back effect, desktop only
   (function() {
     if (window.matchMedia('(max-width: 900px)').matches) return;
     const grid = document.getElementById('gallery-grid');
@@ -2395,9 +2291,7 @@
     });
   })();
 
-  // ==============================================
-  // MAGNETIC CTA BUTTONS
-  // ==============================================
+  // Efek magnetik di tombol CTA
   (function() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -2431,9 +2325,7 @@
     });
   })();
 
-  // ==============================================
-  // SMOOTH SCROLL ANCHOR LINKS
-  // ==============================================
+  // Smooth scroll anchor links
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const target = document.querySelector(link.getAttribute('href'));
