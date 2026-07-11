@@ -343,9 +343,12 @@
     .hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
     .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
     .hero-portrait { max-width: 320px; margin: 0 auto; order: -1; }
-    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .hero-meta { grid-template-columns: 1fr; gap: 1.5rem; }
     .hero-eyebrow { margin-bottom: 2rem; }
-    .hero-title { margin-bottom: 1.8rem; }
+    .hero-title { 
+      margin-bottom: 1.8rem; 
+      font-size: clamp(2.2rem, 8vw, 3.5rem); 
+    }
     .hero-subtitle { margin-bottom: 2.2rem; }
     .hero-cta-wrap { margin-top: 2rem; }
   }
@@ -506,7 +509,7 @@
     section { padding: 5rem 1.5rem; }
     .section-header {
       grid-template-columns: 1fr;
-      gap: 1.2rem;
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
     .section-tag { text-align: left; }
@@ -682,6 +685,7 @@
       grid-column: 2;
       text-align: left;
     }
+    .expertise-desc { margin-top: 0.5rem; }
     .expertise-year { font-size: 0.75rem; margin-top: 0.5rem; }
   }
 
@@ -792,14 +796,15 @@
     }
     .works-track {
       overflow-x: auto;
-      padding: 0 1.5rem 1rem;
+      padding: 1rem 2rem 2rem;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
     .works-track::-webkit-scrollbar { display: none; }
     .work-card {
       flex: 0 0 280px;
-      height: 480px;
+      height: 65vh;
+      max-height: 480px;
       scroll-snap-align: start;
       padding: 1.2rem;
     }
@@ -1169,7 +1174,11 @@
     .contact { padding: 6rem 1.5rem 4rem; }
     .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
     .contact-row { grid-template-columns: 90px 1fr; gap: 1rem; padding: 1.1rem 0; }
-    .contact-value { font-size: 0.98rem; }
+    .contact-value { 
+      font-size: 0.98rem; 
+      word-break: break-word; 
+      overflow-wrap: break-word; 
+    }
   }
 
   /* Tombol CTA magnetik */
