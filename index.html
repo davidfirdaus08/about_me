@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;500&family=Roboto:wght@100;300;400&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <style>
   :root {
     --bg: #f2ede7;
@@ -57,13 +59,9 @@
     transition: background 0.6s var(--ease-quiet), color 0.6s var(--ease-quiet);
   }
 
-  /* Sembunyikan kursor default hanya jika body memiliki class 'cursor-active' (dihandle via JS) */
-  body.cursor-active, body.cursor-active a, body.cursor-active button { 
-    cursor: none; 
-  }
-
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
+  @media (pointer: fine) {
+    body { cursor: none; }
+    a, button { cursor: none; }
   }
 
   ::selection {
@@ -71,7 +69,7 @@
     color: var(--bg);
   }
 
-  /* Noise overlay tekstur grain */
+  /* ============== NOISE OVERLAY ============== */
   .noise-overlay {
     position: fixed;
     inset: 0;
@@ -89,7 +87,7 @@
     80%     { transform: translate(-15%, 0); }
   }
 
-  /* Cursor custom dot + ring */
+  /* ============== CUSTOM CURSOR ============== */
   .cursor-dot, .cursor-ring {
     position: fixed;
     top: 0; left: 0;
@@ -116,7 +114,7 @@
     .cursor-dot, .cursor-ring { display: none; }
   }
 
-  /* Navbar */
+  /* ============== NAV ============== */
   .nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -236,7 +234,7 @@
     .nav-toggle { display: flex; }
   }
 
-  /* Hero section */
+  /* ============== HERO ============== */
   .hero {
     min-height: 100vh;
     padding: 9rem 2.5rem 4rem;
@@ -332,7 +330,7 @@
     height: 100%;
   }
 
-  /* Posisi CTA di hero */
+  /* Hero CTA placement */
   .hero-cta-wrap {
     margin-top: 3rem;
     display: flex;
@@ -345,17 +343,14 @@
     .hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
     .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
     .hero-portrait { max-width: 320px; margin: 0 auto; order: -1; }
-    .hero-meta { grid-template-columns: 1fr; gap: 1.5rem; }
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .hero-eyebrow { margin-bottom: 2rem; }
-    .hero-title { 
-      margin-bottom: 1.8rem; 
-      font-size: clamp(2.2rem, 8vw, 3.5rem); 
-    }
+    .hero-title { margin-bottom: 1.8rem; }
     .hero-subtitle { margin-bottom: 2.2rem; }
     .hero-cta-wrap { margin-top: 2rem; }
   }
 
-  /* Style placeholder foto */
+  /* ============== PHOTO PLACEHOLDER ============== */
   .photo-placeholder {
     width: 100%;
     height: 100%;
@@ -418,7 +413,7 @@
     line-height: 1.5;
   }
 
-  /* Marquee teks berjalan */
+  /* ============== MARQUEE ============== */
   .marquee {
     overflow: hidden;
     border-top: 1px solid var(--line);
@@ -458,7 +453,7 @@
     .marquee-track { gap: 2.5rem; }
   }
 
-  /* Layout section umum */
+  /* ============== SECTION GENERIC ============== */
   section {
     padding: 8rem 2.5rem;
     position: relative;
@@ -511,13 +506,13 @@
     section { padding: 5rem 1.5rem; }
     .section-header {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.2rem;
       margin-bottom: 3rem;
     }
     .section-tag { text-align: left; }
   }
 
-  /* Index angka statistik */
+  /* ============== INDEX ============== */
   .index {
     padding: 6rem 2.5rem;
     border-bottom: 1px solid var(--line);
@@ -558,7 +553,7 @@
     .index-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   }
 
-  /* About section */
+  /* ============== ABOUT ============== */
   .about-grid {
     max-width: 1400px;
     margin: 0 auto;
@@ -632,7 +627,7 @@
     .about-content p:first-child::first-letter { font-size: 3.5rem; }
   }
 
-  /* List keahlian */
+  /* ============== EXPERTISE ============== */
   .expertise-list {
     max-width: 1400px;
     margin: 0 auto;
@@ -687,11 +682,10 @@
       grid-column: 2;
       text-align: left;
     }
-    .expertise-desc { margin-top: 0.5rem; }
     .expertise-year { font-size: 0.75rem; margin-top: 0.5rem; }
   }
 
-  /* Works - horizontal pin scroll */
+  /* ============== WORKS (HORIZONTAL PIN) ============== */
   .works-section { padding: 0; }
   .works-header { padding: 8rem 2.5rem 4rem; }
   .works-viewport {
@@ -798,15 +792,14 @@
     }
     .works-track {
       overflow-x: auto;
-      padding: 1rem 2rem 2rem;
+      padding: 0 1.5rem 1rem;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
     .works-track::-webkit-scrollbar { display: none; }
     .work-card {
       flex: 0 0 280px;
-      height: 65vh;
-      max-height: 480px;
+      height: 480px;
       scroll-snap-align: start;
       padding: 1.2rem;
     }
@@ -814,7 +807,7 @@
     .works-progress, .works-progress-label { display: none; }
   }
 
-  /* Gallery mosaic grid */
+  /* ============== GALLERY (MOSAIC) ============== */
   .gallery-section {
     padding: 8rem 2.5rem;
     background: var(--bg-soft);
@@ -891,7 +884,7 @@
     .gallery-tile-label { opacity: 1; transform: translateY(0); font-size: 0.65rem; }
   }
 
-  /* Section video tontonan */
+  /* ============== TONTONAN (VIDEO) ============== */
   .tontonan {
     padding: 8rem 2.5rem;
     background: #1a1a1a;
@@ -1057,7 +1050,7 @@
     .video-card-title { font-size: 1.1rem; }
   }
 
-  /* Quote filosofi */
+  /* ============== PHILOSOPHY ============== */
   .philosophy {
     padding: 10rem 2.5rem;
     text-align: center;
@@ -1104,7 +1097,7 @@
     .philosophy-attribute { margin-top: 2rem; }
   }
 
-  /* Contact section */
+  /* ============== CONTACT ============== */
   .contact {
     padding: 10rem 2.5rem 6rem;
     border-top: 1px solid var(--line);
@@ -1176,14 +1169,10 @@
     .contact { padding: 6rem 1.5rem 4rem; }
     .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
     .contact-row { grid-template-columns: 90px 1fr; gap: 1rem; padding: 1.1rem 0; }
-    .contact-value { 
-      font-size: 0.98rem; 
-      word-break: break-word; 
-      overflow-wrap: break-word; 
-    }
+    .contact-value { font-size: 0.98rem; }
   }
 
-  /* Tombol CTA magnetik */
+  /* ============== MAGNETIC CTA BUTTON ============== */
   .cta-kicker {
     font-family: 'Roboto';
     font-weight: 400;
@@ -1223,7 +1212,7 @@
     isolation: isolate;
   }
 
-  /* Sweep fill background pas hover */
+  /* Sweep fill (sapuan background) */
   .cta-magnetic::before {
     content: '';
     position: absolute;
@@ -1240,7 +1229,7 @@
     color: var(--bg);
   }
 
-  /* Text swap dua lapis */
+  /* Text swap (dua lapis) */
   .cta-text-wrap {
     position: relative;
     overflow: hidden;
@@ -1268,7 +1257,7 @@
     transform: translateY(-100%);
   }
 
-  /* Panah geser pas hover */
+  /* Arrow slide (panah meluncur) */
   .cta-arrow {
     position: relative;
     width: 30px;
@@ -1292,7 +1281,7 @@
   .cta-magnetic:hover .cta-arrow svg:nth-child(1) { transform: translateX(110%); }
   .cta-magnetic:hover .cta-arrow svg:nth-child(2) { transform: translateX(0); }
 
-  /* Variant large buat contact */
+  /* Variant: large (untuk contact) */
   .cta-magnetic.cta-large {
     padding: 1.8rem 3.5rem;
     font-size: 1.15rem;
@@ -1307,12 +1296,12 @@
     height: 14px;
   }
 
-  /* State magnetic aktif */
+  /* Magnetic active state */
   .cta-magnetic.is-magnetic {
     transition: color 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet), transform 0.3s var(--ease-quiet);
   }
 
-  /* Micro CTA footer */
+  /* Footer micro CTA */
   .cta-micro {
     display: inline-flex;
     align-items: center;
@@ -1359,7 +1348,7 @@
     }
   }
 
-  /* Saklar lampu toggle theme */
+  /* ============== LAMP SWITCH SECTION ============== */
   .lamp-section {
     padding: 8rem 2.5rem;
     border-top: 1px solid var(--line);
@@ -1544,7 +1533,7 @@
     .lamp-container { gap: 1.4rem; }
   }
 
-  /* Footer */
+  /* ============== FOOTER ============== */
   .footer {
     padding: 3rem 2.5rem;
     border-top: 1px solid var(--line);
@@ -1573,7 +1562,7 @@
     .footer-right { text-align: center; }
   }
 
-  /* Animasi fade up on scroll */
+  /* ============== FADE UP ============== */
   .fade-up {
     opacity: 0;
     transform: translateY(40px);
@@ -1604,7 +1593,7 @@
 <div class="cursor-dot"></div>
 <div class="cursor-ring"></div>
 
-<!-- Navbar -->
+<!-- ============== NAV ============== -->
 <nav class="nav">
   <div class="nav-logo">David Firdaus <span>/ 2026</span></div>
   <ul class="nav-menu">
@@ -1615,11 +1604,6 @@
     <li><a href="#contact">Kontak</a></li>
   </ul>
   <div class="nav-meta">Portofolio · Web Dev</div>
-  
-  <button id="nav-theme-toggle" aria-label="Ganti tema warna" style="background: none; border: 1px solid var(--line); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 1rem; color: var(--text);">
-    <svg id="nav-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-  </button>
-
   <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu">
     <span></span>
     <span></span>
@@ -1636,7 +1620,7 @@
   </ul>
 </div>
 
-<!-- Hero -->
+<!-- ============== HERO ============== -->
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
@@ -1679,12 +1663,20 @@
     </div>
 
     <div class="hero-portrait">
-      <img src="Screenshot 2026-07-11 155758.png" alt="Foto David Firdaus" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto kamu di sini</span>
+        <span class="placeholder-hint">Rasio 4:5 · 800 × 1000px<br>Ganti div ini dengan tag &lt;img&gt;</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Marquee -->
+<!-- ============== MARQUEE ============== -->
 <div class="marquee">
   <div class="marquee-track">
     <div class="marquee-item">Web Development</div>
@@ -1702,13 +1694,13 @@
   </div>
 </div>
 
-<!-- Index -->
+<!-- ============== INDEX ============== -->
 <section class="index">
   <div class="index-grid">
     <div class="index-item fade-up">
       <div class="index-number">06</div>
       <div class="index-label">Proyek Pribadi</div>
-      <div class="index-desc">DF Bank, DF University, DF Komik, DF Links, DF Scenery.</div>
+      <div class="index-desc">DF Bank, DF University, DF Komik, DF Links, DF Bank, DF Scenery.</div>
     </div>
     <div class="index-item fade-up">
       <div class="index-number">10+</div>
@@ -1728,7 +1720,7 @@
   </div>
 </section>
 
-<!-- About -->
+<!-- ============== ABOUT ============== -->
 <section id="about">
   <div class="section-header">
     <div class="section-number fade-up">No. 01</div>
@@ -1738,7 +1730,15 @@
 
   <div class="about-grid">
     <div class="about-photo fade-up">
-      <img src="Screenshot 2026-07-11 155758.png" alt="Foto David Firdaus" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto kamu di sini</span>
+        <span class="placeholder-hint">Hitam-putih · Rasio 4:5<br>Untuk seksi Tentang</span>
+      </div>
     </div>
 
     <div class="about-content">
@@ -1766,7 +1766,7 @@
   </div>
 </section>
 
-<!-- Keahlian -->
+<!-- ============== EXPERTISE ============== -->
 <section id="expertise">
   <div class="section-header">
     <div class="section-number fade-up">No. 02</div>
@@ -1814,7 +1814,7 @@
   </div>
 </section>
 
-<!-- Works -->
+<!-- ============== WORKS (HORIZONTAL PIN) ============== -->
 <section id="works" class="works-section">
   <div class="works-header">
     <div class="section-header">
@@ -1834,7 +1834,15 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 01</span><span>Web App</span></div>
           <div class="work-card-image">
-            <img src="Screenshot 2026-07-11 155758.png" alt="DF Komik Platform Baca Manga" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="photo-placeholder">
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
+              <span class="placeholder-hint">Rasio 3:4</span>
+            </div>
           </div>
           <h3 class="work-card-title">DF Komik<br>Platform Baca Manga</h3>
           <div class="work-card-tag">Web Development · PHP</div>
@@ -1843,7 +1851,15 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 02</span><span>Sistem</span></div>
           <div class="work-card-image">
-            <img src="Screenshot 2026-07-11 155758.png" alt="DF Bank Manajemen Data" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="photo-placeholder">
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
+              <span class="placeholder-hint">Rasio 3:4</span>
+            </div>
           </div>
           <h3 class="work-card-title">DF Bank<br>Manajemen Data</h3>
           <div class="work-card-tag">Sistem Informasi · MySQL</div>
@@ -1852,7 +1868,15 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 03</span><span>Web App</span></div>
           <div class="work-card-image">
-            <img src="Screenshot 2026-07-11 155758.png" alt="DF Links Penyingkat Tautan" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="photo-placeholder">
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
+              <span class="placeholder-hint">Rasio 3:4</span>
+            </div>
           </div>
           <h3 class="work-card-title">DF Links<br>Penyingkat Tautan</h3>
           <div class="work-card-tag">Web App · API</div>
@@ -1861,7 +1885,15 @@
         <article class="work-card">
           <div class="work-card-meta"><span>No. 04</span><span>Eksperimen</span></div>
           <div class="work-card-image">
-            <img src="Screenshot 2026-07-11 155758.png" alt="DF Scenery Galeri Visual" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="photo-placeholder">
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
+              <span class="placeholder-hint">Rasio 3:4</span>
+            </div>
           </div>
           <h3 class="work-card-title">DF Scenery<br>Galeri Visual</h3>
           <div class="work-card-tag">Web Design · JS</div>
@@ -1877,7 +1909,7 @@
   </div>
 </section>
 
-<!-- Gallery -->
+<!-- ============== GALLERY (MOSAIC) ============== -->
 <section class="gallery-section">
   <div class="section-header">
     <div class="section-number fade-up">No. 04</div>
@@ -1887,33 +1919,75 @@
 
   <div class="gallery-grid" id="gallery-grid">
     <div class="gallery-tile t1">
-      <img src="Screenshot 2026-07-11 155758.png" alt="DF Komik" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
+      </div>
       <div class="gallery-tile-label">DF Komik</div>
     </div>
     <div class="gallery-tile t2">
-      <img src="Screenshot 2026-07-11 155758.png" alt="DF Links" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
+      </div>
       <div class="gallery-tile-label">DF Links</div>
     </div>
     <div class="gallery-tile t3">
-      <img src="Screenshot 2026-07-11 155758.png" alt="DF Bank" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
+      </div>
       <div class="gallery-tile-label">DF Bank</div>
     </div>
     <div class="gallery-tile t4">
-      <img src="Screenshot 2026-07-11 155758.png" alt="DF Scenery" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
+      </div>
       <div class="gallery-tile-label">DF Scenery</div>
     </div>
     <div class="gallery-tile t5">
-      <img src="Screenshot 2026-07-11 155758.png" alt="UI UX Design" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
+      </div>
       <div class="gallery-tile-label">UI / UX</div>
     </div>
     <div class="gallery-tile t6">
-      <img src="Screenshot 2026-07-11 155758.png" alt="Telegram Bot" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div class="photo-placeholder">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
+      </div>
       <div class="gallery-tile-label">Telegram Bot</div>
     </div>
   </div>
 </section>
 
-<!-- Video -->
+<!-- ============== TONTONAN (VIDEO) ============== -->
 <section id="tontonan" class="tontonan">
   <div class="section-header">
     <div class="section-number fade-up">No. 05</div>
@@ -1993,7 +2067,7 @@
   </div>
 </section>
 
-<!-- Filosofi -->
+<!-- ============== PHILOSOPHY ============== -->
 <section class="philosophy">
   <div class="watermark watermark-right">DEV</div>
   <p class="philosophy-quote fade-up">
@@ -2002,7 +2076,7 @@
   <div class="philosophy-attribute fade-up">— Filosofi Pengembangan, 2026</div>
 </section>
 
-<!-- Contact -->
+<!-- ============== CONTACT ============== -->
 <section id="contact" class="contact">
   <div class="contact-grid">
     <div>
@@ -2044,11 +2118,11 @@
       </div>
       <div class="contact-row fade-up">
         <div class="contact-label">Telegram</div>
-        <a class="contact-value" href="https://t.me/davidfirdaus" target="_blank" rel="noopener">@davidfirdaus</a>
+        <a class="contact-value" href="#" target="_blank" rel="noopener">@davidfirdaus</a>
       </div>
       <div class="contact-row fade-up">
         <div class="contact-label">GitHub</div>
-        <a class="contact-value" href="https://github.com/davidfirdaus08" target="_blank" rel="noopener">github.com/davidfirdaus08</a>
+        <a class="contact-value" href="#" target="_blank" rel="noopener">github.com/davidfirdaus08</a>
       </div>
       <div class="contact-row fade-up">
         <div class="contact-label">Lokasi</div>
@@ -2062,7 +2136,7 @@
   </div>
 </section>
 
-<!-- Saklar lampu -->
+<!-- ============== LAMP SWITCH (SAKLER LAMPU) ============== -->
 <section class="lamp-section">
   <div class="lamp-watermark" id="lamp-watermark">TERANG</div>
   <div class="lamp-container">
@@ -2092,7 +2166,7 @@
   </div>
 </section>
 
-<!-- Footer -->
+<!-- ============== FOOTER ============== -->
 <footer class="footer">
   <div class="footer-left">© 2026 — David Firdaus</div>
   <div class="footer-center">Designed & Developed by David Firdaus</div>
@@ -2100,11 +2174,12 @@
 </footer>
 
 <script>
-  // Toggle dark/light mode pake saklar lampu & tombol navbar
+  // ==============================================
+  // THEME (DARK/LIGHT) — SAKLAR LAMPU
+  // ==============================================
   (function() {
     const html = document.documentElement;
     const lampSwitch = document.getElementById('lamp-switch');
-    const navToggle = document.getElementById('nav-theme-toggle');
     const labelLight = document.getElementById('lamp-label-light');
     const labelDark = document.getElementById('lamp-label-dark');
     const lampStatus = document.getElementById('lamp-status');
@@ -2119,46 +2194,62 @@
     function applyTheme(theme) {
       html.setAttribute('data-theme', theme);
       const isDark = theme === 'dark';
-      
-      if (lampSwitch) lampSwitch.setAttribute('aria-pressed', isDark);
-      if (labelLight) labelLight.classList.toggle('is-active', !isDark);
-      if (labelDark) labelDark.classList.toggle('is-active', isDark);
-      if (lampStatus) lampStatus.textContent = isDark ? 'Mode aktif: Gelap' : 'Mode aktif: Terang';
-      if (lampWatermark) lampWatermark.textContent = isDark ? 'GELAP' : 'TERANG';
+      lampSwitch.setAttribute('aria-pressed', isDark);
+      labelLight.classList.toggle('is-active', !isDark);
+      labelDark.classList.toggle('is-active', isDark);
+      lampStatus.textContent = isDark ? 'Mode aktif: Gelap' : 'Mode aktif: Terang';
+      lampWatermark.textContent = isDark ? 'GELAP' : 'TERANG';
     }
 
-    function toggleTheme() {
+    lampSwitch.addEventListener('click', () => {
       const current = html.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
       applyTheme(next);
       localStorage.setItem('theme', next);
-    }
+    });
 
-    if (lampSwitch) {
-      lampSwitch.addEventListener('click', toggleTheme);
-      lampSwitch.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleTheme();
-        }
-      });
-    }
-
-    if (navToggle) {
-      navToggle.addEventListener('click', toggleTheme);
-    }
+    lampSwitch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        lampSwitch.click();
+      }
+    });
   })();
 
-  // Cursor custom, desktop doang
+  // ==============================================
+  // MOBILE NAV (HAMBURGER)
+  // ==============================================
+  (function() {
+    const toggle = document.getElementById('nav-toggle');
+    const overlay = document.getElementById('nav-overlay');
+    if (!toggle || !overlay) return;
+
+    function closeNav() {
+      toggle.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.classList.toggle('is-open');
+      overlay.classList.toggle('is-open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeNav);
+    });
+  })();
+
+  // ==============================================
+  // CUSTOM CURSOR (desktop only)
+  // ==============================================
   (function() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
-
-    // Tambahkan class agar kursor default hilang HANYA saat JS berjalan
-    document.body.classList.add('cursor-active'); 
 
     window.addEventListener('mousemove', e => {
       mx = e.clientX;
@@ -2183,7 +2274,7 @@
     }
     tick();
 
-    const hoverables = 'a, button, .work-card, .gallery-tile, .video-frame, .expertise-item, .photo-placeholder, .lamp-switch, #nav-theme-toggle';
+    const hoverables = 'a, button, .work-card, .gallery-tile, .video-frame, .expertise-item, .photo-placeholder, .lamp-switch';
     document.querySelectorAll(hoverables).forEach(el => {
       el.addEventListener('mouseenter', () => {
         ring.style.width = '60px';
@@ -2196,23 +2287,31 @@
     });
   })();
 
-  // Reveal text hero pake line mask
+  // ==============================================
+  // HERO LINE MASK REVEAL
+  // ==============================================
   window.addEventListener('load', () => {
-    const lines = document.querySelectorAll('.line');
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      lines.forEach(el => el.style.transform = 'translateY(0)');
+      document.querySelectorAll('.line').forEach(el => el.style.transform = 'translateY(0)');
       return;
     }
 
-    lines.forEach((el, i) => {
-      setTimeout(() => {
-        el.style.transition = 'transform 1.2s cubic-bezier(.22,1,.36,1)';
-        el.style.transform = 'translateY(0)';
-      }, 300 + i * 150);
-    });
+    if (typeof gsap !== 'undefined') {
+      gsap.to('[data-line1]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.3 });
+      gsap.to('[data-line2]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.45 });
+    } else {
+      document.querySelectorAll('.line').forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transition = 'transform 1.2s cubic-bezier(.22,1,.36,1)';
+          el.style.transform = 'translateY(0)';
+        }, 300 + i * 150);
+      });
+    }
   });
 
-  // Fade up pas scroll masuk viewport
+  // ==============================================
+  // FADE UP ON SCROLL
+  // ==============================================
   (function() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -2226,7 +2325,9 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   })();
 
-  // Horizontal pin scroll buat works, desktop only
+  // ==============================================
+  // HORIZONTAL PIN SCROLL (Works) — desktop only
+  // ==============================================
   (function() {
     if (window.matchMedia('(max-width: 1024px)').matches) return;
 
@@ -2280,7 +2381,9 @@
     }, { passive: true });
   })();
 
-  // Mosaic push-back effect, desktop only
+  // ==============================================
+  // GRAYSCALE MOSAIC PUSH-BACK (desktop only)
+  // ==============================================
   (function() {
     if (window.matchMedia('(max-width: 900px)').matches) return;
     const grid = document.getElementById('gallery-grid');
@@ -2292,7 +2395,9 @@
     });
   })();
 
-  // Efek magnetik di tombol CTA
+  // ==============================================
+  // MAGNETIC CTA BUTTONS
+  // ==============================================
   (function() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -2326,7 +2431,9 @@
     });
   })();
 
-  // Smooth scroll anchor links
+  // ==============================================
+  // SMOOTH SCROLL ANCHOR LINKS
+  // ==============================================
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const target = document.querySelector(link.getAttribute('href'));
