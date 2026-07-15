@@ -4,63 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portofolio — David Firdaus · 2026</title>
-<meta name="description" content="Portofolio personal David Firdaus — Web Developer & UI Designer. Membangun pengalaman digital yang berkesan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;500&family=Roboto:wght@100;300;400&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <style>
-  /* ==============================================
-     VARIABEL TEMA
-     Mendefinisikan token desain untuk mode terang dan gelap
-     ============================================== */
   :root {
     --bg: #f2ede7;
-    --bg-soft: rgba(255, 255, 255, 0.35);
-    --bg-card: rgba(255, 255, 255, 0.4);
+    --bg-soft: rgba(255, 255, 255, 0.25);
+    --bg-card: rgba(255, 255, 255, 0.3);
     --text: #161616;
-    --text-emp: #2a2a2a;
+    --text-emp: #333;
     --text-mute: #535353;
-    --text-faint: #9a948c;
-    --line: #ddd6cc;
+    --text-faint: #b1b1b1;
+    --line: #e5e5e5;
     --inverse: #ffffff;
-    --tontonan-bg: #1a1a1a;
-    --tontonan-border: rgba(255, 255, 255, 0.1);
     --noise-opacity: 0.035;
     --handle-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --card-shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.08);
-    --radius-sm: 2px;
     --ease-quiet: cubic-bezier(.22, 1, .36, 1);
+    --ease-precise: cubic-bezier(.4, 0, .2, 1);
     --ease-emphasis: cubic-bezier(.16, 1, .3, 1);
-    --nav-height: 72px;
   }
 
   [data-theme="dark"] {
-    --bg: #141414;
-    --bg-soft: rgba(255, 255, 255, 0.035);
-    --bg-card: rgba(255, 255, 255, 0.04);
+    --bg: #161616;
+    --bg-soft: rgba(255, 255, 255, 0.04);
+    --bg-card: rgba(255, 255, 255, 0.03);
     --text: #f2ede7;
-    --text-emp: #e0dbd4;
+    --text-emp: #d8d3cd;
     --text-mute: #a8a39d;
-    --text-faint: #6e6963;
+    --text-faint: #5a554f;
     --line: #2a2a2a;
-    --inverse: #141414;
-    --tontonan-bg: #0a0a0a;
-    --tontonan-border: rgba(255, 255, 255, 0.08);
+    --inverse: #161616;
     --noise-opacity: 0.05;
     --handle-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(242, 237, 231, 0.12);
-    --card-shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.5);
   }
 
-  /* ==============================================
-     RESET & DASAR
-     ============================================== */
-  *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html {
     scroll-behavior: smooth;
@@ -75,17 +56,9 @@
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     transition: background 0.6s var(--ease-quiet), color 0.6s var(--ease-quiet);
   }
 
-  /* Mencegah warna default tautan browser dan menonaktifkan dekorasi */
-  a, a:visited {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  /* Kursor kustom hanya untuk perangkat dengan pointer presisi */
   @media (pointer: fine) {
     body { cursor: none; }
     a, button { cursor: none; }
@@ -96,24 +69,7 @@
     color: var(--bg);
   }
 
-  /* Fokus keyboard untuk aksesibilitas */
-  :focus {
-    outline: none;
-  }
-  :focus-visible {
-    outline: 2px solid var(--text);
-    outline-offset: 3px;
-  }
-
-  /* Offset jangkar untuk kompensasi navigasi tetap */
-  section[id] {
-    scroll-margin-top: var(--nav-height);
-  }
-
-  /* ==============================================
-     OVERLAY NOISE
-     Tekstur halus pada seluruh halaman
-     ============================================== */
+  /* ============== NOISE OVERLAY ============== */
   .noise-overlay {
     position: fixed;
     inset: 0;
@@ -125,153 +81,62 @@
     transition: opacity 0.6s var(--ease-quiet);
   }
   @keyframes noise {
-    0%, 100% { transform: translate(0, 0); }
-    20%      { transform: translate(-10%, 5%); }
-    50%      { transform: translate(5%, -10%); }
-    80%      { transform: translate(-15%, 0); }
+    0%,100% { transform: translate(0,0); }
+    20%     { transform: translate(-10%, 5%); }
+    50%     { transform: translate(5%, -10%); }
+    80%     { transform: translate(-15%, 0); }
   }
 
-  /* ==============================================
-     PRELOADER
-     Layer pembuka yang menampilkan animasi pemuatan halaman
-     ============================================== */
-  .preloader {
-    position: fixed;
-    inset: 0;
-    z-index: 10001;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.8s var(--ease-quiet), visibility 0.8s var(--ease-quiet);
-  }
-  .preloader.is-loaded {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .preloader-content {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  .preloader-name {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 300;
-    font-size: clamp(1rem, 3vw, 1.4rem);
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-  .preloader-bar {
-    width: 200px;
-    height: 1px;
-    background: var(--line);
-    overflow: hidden;
-    position: relative;
-  }
-  .preloader-fill {
-    position: absolute;
-    inset: 0;
-    background: var(--text);
-    transform-origin: left;
-    animation: preloaderFill 1.4s var(--ease-emphasis) forwards;
-  }
-  @keyframes preloaderFill {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-  .preloader-meta {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
-
-  /* ==============================================
-     INDIKATOR PROGRES GULIR
-     Bar tipis di bagian atas halaman
-     ============================================== */
-  .scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 2px;
-    background: var(--text);
-    z-index: 101;
-    width: 0%;
-    transition: width 0.08s linear;
-  }
-
-  /* ==============================================
-     KURSOR KUSTOM
-     Titik dan cincin yang mengikuti pergerakan mouse
-     ============================================== */
+  /* ============== CUSTOM CURSOR ============== */
   .cursor-dot, .cursor-ring {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     pointer-events: none;
     z-index: 10000;
     opacity: 0;
-    transition: opacity 0.25s ease-out;
+    transition: opacity .25s ease-out;
     will-change: transform;
     mix-blend-mode: difference;
   }
   .cursor-dot {
-    width: 6px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.9);
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,.85);
     border-radius: 50%;
   }
   .cursor-ring {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,.45);
     border-radius: 50%;
-    transition: opacity 0.25s ease-out, width 0.35s var(--ease-quiet), height 0.35s var(--ease-quiet);
+    transition: opacity .25s ease-out, width .35s var(--ease-quiet), height .35s var(--ease-quiet);
   }
-  .cursor-dot.is-visible,
-  .cursor-ring.is-visible { opacity: 1; }
+  .cursor-dot.is-visible, .cursor-ring.is-visible { opacity: 1; }
   @media (pointer: coarse) {
     .cursor-dot, .cursor-ring { display: none; }
   }
 
-  /* ==============================================
-     NAVIGASI
-     Bar tetap di bagian atas dengan blur dan toggle tema
-     ============================================== */
+  /* ============== NAV ============== */
   .nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
-    height: var(--nav-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2.5rem;
+    padding: 1.4rem 2.5rem;
     background: color-mix(in srgb, var(--bg) 80%, transparent);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
     transition: background 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet);
   }
   .nav-logo {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.95rem;
+    font-size: 1rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--text);
-    white-space: nowrap;
   }
   .nav-logo span { color: var(--text-faint); }
-
   .nav-menu {
     display: flex;
     gap: 2.5rem;
@@ -282,77 +147,28 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-mute);
+    text-decoration: none;
     transition: color 0.3s var(--ease-quiet);
     position: relative;
-    padding: 0.3rem 0;
   }
   .nav-menu a::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
     background: var(--text);
     transition: width 0.4s var(--ease-quiet);
   }
-  .nav-menu a:hover,
-  .nav-menu a.is-active {
-    color: var(--text);
-  }
-  .nav-menu a:hover::after,
-  .nav-menu a.is-active::after {
-    width: 100%;
-  }
-
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
+  .nav-menu a:hover { color: var(--text); }
+  .nav-menu a:hover::after { width: 100%; }
   .nav-meta {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     color: var(--text-faint);
-    text-transform: uppercase;
-    white-space: nowrap;
   }
 
-  /* Tombol toggle tema pada navigasi */
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    background: transparent;
-    color: var(--text);
-    transition: border-color 0.4s var(--ease-quiet), transform 0.4s var(--ease-quiet);
-  }
-  .theme-toggle:hover {
-    border-color: var(--text);
-    transform: rotate(15deg);
-  }
-  .theme-toggle svg {
-    width: 15px;
-    height: 15px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  /* Tampilkan ikon sesuai tema aktif */
-  [data-theme="light"] .theme-toggle .icon-moon { display: block; }
-  [data-theme="light"] .theme-toggle .icon-sun { display: none; }
-  [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-  [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-
-  /* Tombol hamburger untuk mobile */
   .nav-toggle {
     display: none;
     flex-direction: column;
@@ -360,8 +176,8 @@
     background: none;
     border: none;
     padding: 8px;
+    cursor: pointer;
     z-index: 101;
-    color: var(--text);
   }
   .nav-toggle span {
     width: 26px;
@@ -373,7 +189,6 @@
   .nav-toggle.is-open span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
   .nav-toggle.is-open span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
-  /* Overlay menu mobile */
   .nav-overlay {
     position: fixed;
     inset: 0;
@@ -383,62 +198,46 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s var(--ease-quiet), visibility 0.5s var(--ease-quiet);
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-quiet);
   }
   .nav-overlay.is-open {
     opacity: 1;
-    visibility: visible;
+    pointer-events: all;
   }
   .nav-overlay ul {
     list-style: none;
     text-align: center;
   }
   .nav-overlay li {
-    margin: 1.5rem 0;
+    margin: 1.8rem 0;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.5s var(--ease-quiet), transform 0.5s var(--ease-quiet);
   }
-  .nav-overlay.is-open li {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  /* Animasi bertahap untuk setiap item menu mobile */
-  .nav-overlay.is-open li:nth-child(1) { transition-delay: 0.1s; }
-  .nav-overlay.is-open li:nth-child(2) { transition-delay: 0.18s; }
-  .nav-overlay.is-open li:nth-child(3) { transition-delay: 0.26s; }
-  .nav-overlay.is-open li:nth-child(4) { transition-delay: 0.34s; }
-  .nav-overlay.is-open li:nth-child(5) { transition-delay: 0.42s; }
   .nav-overlay a {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
     font-size: clamp(2rem, 8vw, 3rem);
     color: var(--text);
+    text-decoration: none;
     letter-spacing: 0.02em;
     display: inline-block;
-    transition: transform 0.5s var(--ease-quiet), font-style 0.3s var(--ease-quiet);
+    transition: transform 0.5s var(--ease-quiet);
   }
   .nav-overlay a:hover {
-    transform: translateX(10px);
+    transform: translateX(8px);
     font-style: italic;
   }
 
   @media (max-width: 768px) {
-    .nav { padding: 0 1.5rem; }
+    .nav { padding: 1rem 1.5rem; }
     .nav-menu, .nav-meta { display: none; }
     .nav-toggle { display: flex; }
-    .nav-actions { gap: 1rem; }
   }
 
-  /* ==============================================
-     HERO
-     Bagian pembuka dengan judul, deskripsi, dan CTA
-     ============================================== */
+  /* ============== HERO ============== */
   .hero {
     min-height: 100vh;
-    padding: calc(var(--nav-height) + 4rem) 2.5rem 4rem;
+    padding: 9rem 2.5rem 4rem;
     display: flex;
     align-items: center;
     position: relative;
@@ -454,13 +253,13 @@
     align-items: center;
   }
   .hero-eyebrow {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     font-weight: 400;
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--text-mute);
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -472,12 +271,12 @@
     background: var(--text-mute);
   }
   .hero-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(2.5rem, 7vw, 7rem);
+    font-size: clamp(3rem, 8vw, 8rem);
     line-height: 0.98;
     letter-spacing: -0.02em;
-    margin-bottom: 2.2rem;
+    margin-bottom: 2.5rem;
   }
   .line-mask { overflow: hidden; display: block; }
   .line { transform: translateY(110%); display: block; }
@@ -491,7 +290,7 @@
     line-height: 1.7;
     color: var(--text-mute);
     max-width: 32rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     font-weight: 300;
   }
   .hero-meta {
@@ -508,100 +307,56 @@
     gap: 0.4rem;
   }
   .hero-meta span {
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-faint);
   }
   .hero-meta strong {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     color: var(--text);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
   }
   .hero-portrait {
     aspect-ratio: 4 / 5;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     margin-left: auto;
     position: relative;
   }
   .hero-portrait .photo-placeholder {
     height: 100%;
   }
+
+  /* Hero CTA placement */
   .hero-cta-wrap {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
 
-  /* Indikator gulir di bagian bawah hero */
-  .hero-scroll-cue {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    opacity: 0.5;
-  }
-  .hero-scroll-cue span {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 200;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
-  .hero-scroll-cue-line {
-    width: 1px;
-    height: 40px;
-    background: var(--text-faint);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-scroll-cue-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: var(--bg);
-    animation: scrollLine 2s var(--ease-quiet) infinite;
-  }
-  @keyframes scrollLine {
-    0%   { transform: translateY(-100%); }
-    100% { transform: translateY(200%); }
-  }
-
   @media (max-width: 900px) {
-    .hero { padding: calc(var(--nav-height) + 2rem) 1.5rem 3rem; min-height: auto; }
-    .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .hero-portrait { max-width: 300px; margin: 0 auto; order: -1; }
+    .hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-portrait { max-width: 320px; margin: 0 auto; order: -1; }
     .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .hero-eyebrow { margin-bottom: 1.5rem; }
-    .hero-title { margin-bottom: 1.5rem; }
-    .hero-subtitle { margin-bottom: 2rem; }
-    .hero-cta-wrap { margin-top: 1.5rem; }
-    .hero-scroll-cue { display: none; }
+    .hero-eyebrow { margin-bottom: 2rem; }
+    .hero-title { margin-bottom: 1.8rem; }
+    .hero-subtitle { margin-bottom: 2.2rem; }
+    .hero-cta-wrap { margin-top: 2rem; }
   }
 
-  /* ==============================================
-     PLACEHOLDER FOTO
-     Komponen placeholder untuk gambar yang belum ditambahkan
-     ============================================== */
+  /* ============== PHOTO PLACEHOLDER ============== */
   .photo-placeholder {
     width: 100%;
     height: 100%;
     min-height: 280px;
-    border: 1px dashed var(--text-faint);
-    background: var(--bg-soft);
+    border: 1px dashed #c5beb5;
+    background: rgba(255, 255, 255, 0.35);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -611,61 +366,54 @@
     padding: 2rem;
     position: relative;
     transition: all 0.5s var(--ease-quiet);
-    border-radius: var(--radius-sm);
+  }
+  [data-theme="dark"] .photo-placeholder {
+    border-color: #3a3a3a;
+    background: rgba(255, 255, 255, 0.02);
   }
   .photo-placeholder::before,
   .photo-placeholder::after {
     content: '';
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 12px; height: 12px;
     border: 1px solid var(--text-faint);
   }
   .photo-placeholder::before {
-    top: 0.75rem;
-    left: 0.75rem;
-    border-right: none;
-    border-bottom: none;
+    top: 0.75rem; left: 0.75rem;
+    border-right: none; border-bottom: none;
   }
   .photo-placeholder::after {
-    bottom: 0.75rem;
-    right: 0.75rem;
-    border-left: none;
-    border-top: none;
+    bottom: 0.75rem; right: 0.75rem;
+    border-left: none; border-top: none;
   }
   .photo-placeholder:hover {
     border-color: var(--text-mute);
-    background: var(--bg-card);
+    background: rgba(255, 255, 255, 0.55);
+  }
+  [data-theme="dark"] .photo-placeholder:hover {
+    background: rgba(255, 255, 255, 0.05);
   }
   .placeholder-icon {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     color: var(--text-faint);
     margin-bottom: 0.5rem;
-    transition: color 0.4s var(--ease-quiet);
-  }
-  .photo-placeholder:hover .placeholder-icon {
-    color: var(--text-mute);
   }
   .placeholder-label {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.25em;
     color: var(--text-mute);
     text-transform: uppercase;
   }
   .placeholder-hint {
-    font-size: 0.66rem;
+    font-size: 0.68rem;
     letter-spacing: 0.08em;
     color: var(--text-faint);
     line-height: 1.5;
   }
 
-  /* ==============================================
-     MARQUEE
-     Pita berjalan dengan daftar keahlian
-     ============================================== */
+  /* ============== MARQUEE ============== */
   .marquee {
     overflow: hidden;
     border-top: 1px solid var(--line);
@@ -673,9 +421,6 @@
     padding: 1.5rem 0;
     background: var(--bg-soft);
     transition: background 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet);
-  }
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
   }
   .marquee-track {
     display: flex;
@@ -685,7 +430,7 @@
     width: max-content;
   }
   .marquee-item {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
     font-size: 1.5rem;
     letter-spacing: 0.15em;
@@ -708,16 +453,14 @@
     .marquee-track { gap: 2.5rem; }
   }
 
-  /* ==============================================
-     STRUKTUR GENERIC
-     ============================================== */
+  /* ============== SECTION GENERIC ============== */
   section {
     padding: 8rem 2.5rem;
     position: relative;
   }
   .section-header {
     max-width: 1400px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 5rem;
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 3rem;
@@ -726,16 +469,16 @@
     border-bottom: 1px solid var(--line);
   }
   .section-number {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     letter-spacing: 0.25em;
     color: var(--text-faint);
   }
   .section-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
     line-height: 1;
     letter-spacing: -0.01em;
   }
@@ -744,18 +487,18 @@
     color: var(--text-mute);
   }
   .section-tag {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-mute);
     text-align: right;
-    white-space: nowrap;
   }
   .section-desc {
-    max-width: 50rem;
-    margin: 0 auto 4rem;
-    font-size: 1.05rem;
+    max-width: 1400px;
+    margin: 0 auto 5rem;
+    font-size: 1.1rem;
     color: var(--text-mute);
+    max-width: 50rem;
     line-height: 1.7;
   }
 
@@ -763,18 +506,15 @@
     section { padding: 5rem 1.5rem; }
     .section-header {
       grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
+      gap: 1.2rem;
+      margin-bottom: 3rem;
     }
     .section-tag { text-align: left; }
   }
 
-  /* ==============================================
-     INDEKS / STATISTIK
-     Grid angka statistik dengan animasi hitung naik
-     ============================================== */
+  /* ============== INDEX ============== */
   .index {
-    padding: 5rem 2.5rem;
+    padding: 6rem 2.5rem;
     border-bottom: 1px solid var(--line);
   }
   .index-grid {
@@ -788,51 +528,32 @@
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    position: relative;
-  }
-  .index-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--text);
-    transition: width 0.6s var(--ease-quiet);
-  }
-  .index-item.is-in::before {
-    width: 2rem;
   }
   .index-number {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
     font-size: clamp(2.2rem, 5vw, 3rem);
     line-height: 1;
     color: var(--text);
-    padding-top: 1rem;
   }
   .index-label {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-mute);
-    margin-top: 0.3rem;
   }
   .index-desc {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     color: var(--text-mute);
     line-height: 1.5;
     margin-top: 0.5rem;
   }
   @media (max-width: 768px) {
-    .index { padding: 3.5rem 1.5rem; }
+    .index { padding: 4rem 1.5rem; }
     .index-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   }
 
-  /* ==============================================
-     TENTANG
-     Layout dua kolom dengan foto dan biografi
-     ============================================== */
+  /* ============== ABOUT ============== */
   .about-grid {
     max-width: 1400px;
     margin: 0 auto;
@@ -844,7 +565,7 @@
   .about-photo {
     aspect-ratio: 4 / 5;
     position: sticky;
-    top: calc(var(--nav-height) + 2rem);
+    top: 8rem;
   }
   .about-content p {
     font-size: 1.05rem;
@@ -852,8 +573,8 @@
     color: var(--text-emp);
     margin-bottom: 1.8rem;
   }
-  .about-content p:first-of-type::first-letter {
-    font-family: 'Oswald', sans-serif;
+  .about-content p:first-child::first-letter {
+    font-family: 'Oswald';
     font-weight: 200;
     font-size: 4.5rem;
     float: left;
@@ -862,7 +583,7 @@
     margin-top: 0.3rem;
     color: var(--text);
   }
-  .about-content p:last-of-type {
+  .about-content p:last-child {
     color: var(--text-mute);
     font-size: 0.95rem;
   }
@@ -871,22 +592,12 @@
     padding: 2rem 0;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
     font-style: italic;
-    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-size: 1.5rem;
     line-height: 1.4;
     color: var(--text-emp);
-    position: relative;
-  }
-  .about-quote::before {
-    content: '"';
-    position: absolute;
-    top: -0.5rem;
-    left: -0.5rem;
-    font-size: 3rem;
-    color: var(--text-faint);
-    opacity: 0.3;
   }
   .about-signature {
     margin-top: 2rem;
@@ -900,9 +611,9 @@
     background: var(--line);
   }
   .signature-text {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     letter-spacing: 0.2em;
     color: var(--text-mute);
     text-transform: uppercase;
@@ -910,92 +621,71 @@
   }
   @media (max-width: 900px) {
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .about-photo { position: relative; top: 0; max-width: 340px; }
+    .about-photo { position: relative; top: 0; max-width: 360px; }
     .about-content p { font-size: 0.98rem; }
-    .about-quote { font-size: 1.2rem; margin: 2rem 0; padding: 1.5rem 0; }
-    .about-content p:first-of-type::first-letter { font-size: 3.5rem; }
+    .about-quote { font-size: 1.25rem; margin: 2rem 0; padding: 1.5rem 0; }
+    .about-content p:first-child::first-letter { font-size: 3.5rem; }
   }
 
-  /* ==============================================
-     KEAHLIAN
-     Daftar keahlian dengan efek hover
-     ============================================== */
+  /* ============== EXPERTISE ============== */
   .expertise-list {
     max-width: 1400px;
     margin: 0 auto;
   }
   .expertise-item {
     display: grid;
-    grid-template-columns: 60px 1fr 1.5fr 120px;
+    grid-template-columns: 80px 1fr 1.5fr 120px;
     gap: 3rem;
-    padding: 2.2rem 0;
+    padding: 2.5rem 0;
     border-bottom: 1px solid var(--line);
     align-items: center;
-    transition: padding 0.5s var(--ease-quiet), background 0.5s var(--ease-quiet);
-    position: relative;
-    cursor: default;
+    transition: padding 0.4s var(--ease-quiet);
   }
   .expertise-item:first-child { border-top: 1px solid var(--line); }
-  .expertise-item:hover {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    background: var(--bg-soft);
-  }
+  .expertise-item:hover { padding-left: 1.5rem; }
   .expertise-num {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-faint);
     letter-spacing: 0.1em;
   }
   .expertise-name {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-size: 1.6rem;
     letter-spacing: 0.01em;
-    transition: transform 0.4s var(--ease-quiet);
-  }
-  .expertise-item:hover .expertise-name {
-    transform: translateX(8px);
   }
   .expertise-desc {
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     color: var(--text-mute);
     line-height: 1.6;
   }
   .expertise-year {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     color: var(--text-faint);
     letter-spacing: 0.15em;
     text-align: right;
-    text-transform: uppercase;
   }
   @media (max-width: 900px) {
     .expertise-item {
-      grid-template-columns: 36px 1fr;
+      grid-template-columns: 40px 1fr;
       gap: 1rem;
-      padding: 1.6rem 0;
+      padding: 1.8rem 0;
     }
-    .expertise-item:hover {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-    .expertise-num { font-size: 0.82rem; }
-    .expertise-name { font-size: 1.2rem; }
-    .expertise-item:hover .expertise-name { transform: none; }
+    .expertise-item:hover { padding-left: 0; }
+    .expertise-num { font-size: 0.85rem; }
+    .expertise-name { font-size: 1.25rem; }
     .expertise-desc, .expertise-year {
       grid-column: 2;
       text-align: left;
     }
-    .expertise-year { font-size: 0.72rem; margin-top: 0.4rem; }
+    .expertise-year { font-size: 0.75rem; margin-top: 0.5rem; }
   }
 
-  /* ==============================================
-     KARYA (GULIR HORIZONTAL PINNED)
-     Konversi gulir vertikal menjadi horizontal pada desktop
-     ============================================== */
+  /* ============== WORKS (HORIZONTAL PIN) ============== */
   .works-section { padding: 0; }
   .works-header { padding: 8rem 2.5rem 4rem; }
   .works-viewport {
@@ -1015,35 +705,30 @@
     gap: 2rem;
     padding: 0 5rem;
     will-change: transform;
+    transition: transform 0.15s linear;
   }
   .work-card {
     flex: 0 0 360px;
     height: 70vh;
-    max-height: 580px;
+    max-height: 600px;
     display: flex;
     flex-direction: column;
     background: var(--bg-card);
     border: 1px solid var(--line);
     padding: 1.5rem;
-    transition: background 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet), box-shadow 0.5s var(--ease-quiet);
+    transition: transform 0.4s var(--ease-quiet), background 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet);
     position: relative;
-    border-radius: var(--radius-sm);
-  }
-  .work-card:hover {
-    border-color: var(--text-mute);
-    box-shadow: var(--card-shadow-hover);
   }
   .work-card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     color: var(--text-mute);
-    text-transform: uppercase;
   }
   .work-card-image {
     flex: 1;
@@ -1054,20 +739,16 @@
   .work-card-image .photo-placeholder {
     height: 100%;
     min-height: 0;
-    transition: transform 0.6s var(--ease-quiet);
-  }
-  .work-card:hover .work-card-image .photo-placeholder {
-    transform: scale(1.03);
   }
   .work-card-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     line-height: 1.15;
     margin-bottom: 0.5rem;
   }
   .work-card-tag {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--text-faint);
@@ -1093,9 +774,9 @@
     bottom: 4.5rem;
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.3em;
     color: var(--text-faint);
     text-transform: uppercase;
@@ -1114,29 +795,25 @@
       padding: 0 1.5rem 1rem;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
     }
     .works-track::-webkit-scrollbar { display: none; }
     .work-card {
       flex: 0 0 280px;
-      height: 460px;
+      height: 480px;
       scroll-snap-align: start;
       padding: 1.2rem;
     }
-    .work-card-title { font-size: 1.15rem; }
+    .work-card-title { font-size: 1.2rem; }
     .works-progress, .works-progress-label { display: none; }
   }
 
-  /* ==============================================
-     GALERI MOSAIK
-     Grid asimetris dengan efek hover push-back
-     ============================================== */
+  /* ============== GALLERY (MOSAIC) ============== */
   .gallery-section {
     padding: 8rem 2.5rem;
     background: var(--bg-soft);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    transition: background 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet);
+    transition: background 0.6s var(--ease-quiet);
   }
   .gallery-grid {
     max-width: 1600px;
@@ -1151,7 +828,6 @@
     overflow: hidden;
     transition: transform 0.7s var(--ease-emphasis), opacity 0.7s var(--ease-emphasis);
     transform-origin: center center;
-    border-radius: var(--radius-sm);
   }
   .gallery-tile.t1 { grid-column: span 5; grid-row: span 5; }
   .gallery-tile.t2 { grid-column: span 4; grid-row: span 3; }
@@ -1161,34 +837,27 @@
   .gallery-tile.t6 { grid-column: span 5; grid-row: span 4; }
   .gallery-grid.has-hover .gallery-tile:not(:hover) {
     transform: scale(0.97);
-    opacity: 0.4;
+    opacity: 0.5;
   }
   .gallery-tile:hover { transform: scale(1.02); }
   .gallery-tile .photo-placeholder {
     height: 100%;
     min-height: 0;
-    transition: transform 0.6s var(--ease-quiet);
-  }
-  .gallery-tile:hover .photo-placeholder {
-    transform: scale(1.05);
   }
   .gallery-tile-label {
     position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    font-family: 'Oswald', sans-serif;
+    bottom: 1rem; left: 1rem;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     color: var(--text);
-    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
     padding: 0.4rem 0.8rem;
     text-transform: uppercase;
     opacity: 0;
     transform: translateY(8px);
     transition: all 0.4s var(--ease-quiet);
-    border-radius: var(--radius-sm);
-    backdrop-filter: blur(4px);
   }
   .gallery-tile:hover .gallery-tile-label {
     opacity: 1;
@@ -1212,20 +881,16 @@
       opacity: 1;
     }
     .gallery-tile:hover { transform: scale(1); }
-    .gallery-tile:hover .photo-placeholder { transform: none; }
-    .gallery-tile-label { opacity: 1; transform: translateY(0); font-size: 0.62rem; }
+    .gallery-tile-label { opacity: 1; transform: translateY(0); font-size: 0.65rem; }
   }
 
-  /* ==============================================
-     TONTONAN (VIDEO)
-     dengan latar gelap untuk pengalaman sinematik
-     ============================================== */
+  /* ============== TONTONAN (VIDEO) ============== */
   .tontonan {
     padding: 8rem 2.5rem;
-    background: var(--tontonan-bg);
+    background: #1a1a1a;
     color: var(--inverse);
   }
-  .tontonan .section-header { border-bottom-color: var(--tontonan-border); }
+  .tontonan .section-header { border-bottom-color: rgba(255, 255, 255, 0.15); }
   .tontonan .section-number,
   .tontonan .section-tag { color: rgba(255, 255, 255, 0.5); }
   .tontonan .section-title { color: var(--inverse); }
@@ -1240,8 +905,7 @@
     position: relative;
     overflow: hidden;
     background: #0a0a0a;
-    border: 1px solid var(--tontonan-border);
-    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   .video-frame iframe {
     width: 100%;
@@ -1260,37 +924,31 @@
     text-align: center;
     padding: 2rem;
     position: relative;
-    border: 1px dashed rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.03);
     transition: all 0.5s var(--ease-quiet);
   }
   .video-placeholder:hover {
     border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
   }
   .video-placeholder::before,
   .video-placeholder::after {
     content: '';
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 14px; height: 14px;
     border: 1px solid rgba(255, 255, 255, 0.4);
   }
   .video-placeholder::before {
-    top: 0.75rem;
-    left: 0.75rem;
-    border-right: none;
-    border-bottom: none;
+    top: 0.75rem; left: 0.75rem;
+    border-right: none; border-bottom: none;
   }
   .video-placeholder::after {
-    bottom: 0.75rem;
-    right: 0.75rem;
-    border-left: none;
-    border-top: none;
+    bottom: 0.75rem; right: 0.75rem;
+    border-left: none; border-top: none;
   }
   .play-icon {
-    width: 56px;
-    height: 56px;
+    width: 56px; height: 56px;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     display: flex;
@@ -1302,11 +960,9 @@
   .video-placeholder:hover .play-icon {
     border-color: rgba(255, 255, 255, 0.8);
     transform: scale(1.08);
-    background: rgba(255, 255, 255, 0.08);
   }
   .play-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     fill: rgba(255, 255, 255, 0.8);
     margin-left: 3px;
   }
@@ -1322,19 +978,19 @@
     align-items: end;
     margin-top: 2rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--tontonan-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
   .video-feature-num {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     letter-spacing: 0.25em;
     color: rgba(255, 255, 255, 0.5);
   }
   .video-feature-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(1.5rem, 3vw, 2.3rem);
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
     line-height: 1.1;
     color: var(--inverse);
   }
@@ -1343,9 +999,9 @@
     color: rgba(255, 255, 255, 0.55);
   }
   .video-feature-duration {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     letter-spacing: 0.2em;
     color: rgba(255, 255, 255, 0.6);
   }
@@ -1356,45 +1012,34 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
-  .video-card {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.4s var(--ease-quiet);
-  }
-  .video-card:hover {
-    transform: translateY(-4px);
-  }
+  .video-card { display: flex; flex-direction: column; }
   .video-card .video-frame { aspect-ratio: 4 / 3; }
   .video-card-meta {
     margin-top: 1.5rem;
     padding-top: 1.2rem;
-    border-top: 1px solid var(--tontonan-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
   .video-card-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.8rem;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     color: rgba(255, 255, 255, 0.55);
   }
   .video-card-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     line-height: 1.2;
     color: var(--inverse);
     margin-bottom: 0.6rem;
-    transition: color 0.3s var(--ease-quiet);
-  }
-  .video-card:hover .video-card-title {
-    color: rgba(255, 255, 255, 0.8);
   }
   .video-card-desc {
-    font-size: 0.83rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
     line-height: 1.5;
   }
   @media (max-width: 900px) {
@@ -1405,26 +1050,20 @@
     .video-card-title { font-size: 1.1rem; }
   }
 
-  /* ==============================================
-     FILOSOFI
-     Kutipan besar dengan watermark
-     ============================================== */
+  /* ============== PHILOSOPHY ============== */
   .philosophy {
     padding: 10rem 2.5rem;
     text-align: center;
     overflow: hidden;
-    position: relative;
   }
   .philosophy-quote {
     max-width: 1100px;
     margin: 0 auto;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(1.5rem, 4vw, 3.2rem);
+    font-size: clamp(1.6rem, 4vw, 3.5rem);
     line-height: 1.2;
     letter-spacing: -0.01em;
-    position: relative;
-    z-index: 1;
   }
   .philosophy-quote .italic {
     font-style: italic;
@@ -1432,16 +1071,16 @@
   }
   .philosophy-attribute {
     margin-top: 3rem;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     letter-spacing: 0.3em;
     color: var(--text-faint);
     text-transform: uppercase;
   }
   .watermark {
     position: absolute;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
     font-size: 20vw;
     line-height: 0.85;
@@ -1458,12 +1097,9 @@
     .philosophy-attribute { margin-top: 2rem; }
   }
 
-  /* ==============================================
-     KONTAK
-     Layout dua kolom dengan CTA dan informasi kontak
-     ============================================== */
+  /* ============== CONTACT ============== */
   .contact {
-    padding: 8rem 2.5rem 6rem;
+    padding: 10rem 2.5rem 6rem;
     border-top: 1px solid var(--line);
   }
   .contact-grid {
@@ -1482,9 +1118,9 @@
     margin-bottom: 2rem;
   }
   .contact-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(2.2rem, 6vw, 5rem);
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
     line-height: 0.98;
     letter-spacing: -0.02em;
     margin-bottom: 2rem;
@@ -1503,61 +1139,44 @@
   .contact-info {
     display: flex;
     flex-direction: column;
+    gap: 0;
   }
   .contact-row {
     display: grid;
     grid-template-columns: 100px 1fr;
     gap: 2rem;
-    padding: 1.3rem 0;
+    padding: 1.4rem 0;
     border-bottom: 1px solid var(--line);
     align-items: baseline;
-    transition: padding 0.4s var(--ease-quiet);
   }
   .contact-row:first-child { border-top: 1px solid var(--line); }
-  .contact-row:hover {
-    padding-left: 0.5rem;
-  }
   .contact-label {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-faint);
   }
   .contact-value {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: var(--text);
+    text-decoration: none;
     transition: color 0.3s var(--ease-quiet);
-    position: relative;
-    display: inline-block;
   }
-  a.contact-value::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--text);
-    transition: width 0.4s var(--ease-quiet);
-  }
-  a.contact-value:hover::after { width: 100%; }
+  a.contact-value:hover { color: var(--text-mute); }
   @media (max-width: 900px) {
     .contact { padding: 6rem 1.5rem 4rem; }
     .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .contact-row { grid-template-columns: 88px 1fr; gap: 1rem; padding: 1.1rem 0; }
-    .contact-value { font-size: 0.95rem; }
+    .contact-row { grid-template-columns: 90px 1fr; gap: 1rem; padding: 1.1rem 0; }
+    .contact-value { font-size: 0.98rem; }
   }
 
-  /* ==============================================
-     TOMBOL CTA MAGNETIK
-     Tombol dengan efek sapuan, pertukaran teks, dan panah meluncur
-     ============================================== */
+  /* ============== MAGNETIC CTA BUTTON ============== */
   .cta-kicker {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     font-weight: 400;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--text-faint);
@@ -1577,23 +1196,23 @@
     display: inline-flex;
     align-items: center;
     gap: 1.4rem;
-    padding: 1.2rem 2.4rem;
+    padding: 1.3rem 2.6rem;
     background: transparent;
     border: 1px solid var(--text);
     color: var(--text);
-    font-family: 'Oswald', sans-serif;
+    text-decoration: none;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     overflow: hidden;
     transition: color 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet);
     will-change: transform;
     isolation: isolate;
-    border-radius: var(--radius-sm);
   }
 
-  /* Sapuan latar belakang pada hover */
+  /* Sweep fill (sapuan background) */
   .cta-magnetic::before {
     content: '';
     position: absolute;
@@ -1610,7 +1229,7 @@
     color: var(--bg);
   }
 
-  /* Pertukaran teks dua lapis */
+  /* Text swap (dua lapis) */
   .cta-text-wrap {
     position: relative;
     overflow: hidden;
@@ -1638,7 +1257,7 @@
     transform: translateY(-100%);
   }
 
-  /* Panah meluncur */
+  /* Arrow slide (panah meluncur) */
   .cta-arrow {
     position: relative;
     width: 30px;
@@ -1662,10 +1281,10 @@
   .cta-magnetic:hover .cta-arrow svg:nth-child(1) { transform: translateX(110%); }
   .cta-magnetic:hover .cta-arrow svg:nth-child(2) { transform: translateX(0); }
 
-  /* Varian ukuran besar */
+  /* Variant: large (untuk contact) */
   .cta-magnetic.cta-large {
-    padding: 1.6rem 3.2rem;
-    font-size: 1.05rem;
+    padding: 1.8rem 3.5rem;
+    font-size: 1.15rem;
     letter-spacing: 0.25em;
   }
   .cta-magnetic.cta-large .cta-arrow {
@@ -1677,21 +1296,23 @@
     height: 14px;
   }
 
+  /* Magnetic active state */
   .cta-magnetic.is-magnetic {
     transition: color 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet), transform 0.3s var(--ease-quiet);
   }
 
-  /* Mikro CTA */
+  /* Footer micro CTA */
   .cta-micro {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--text-mute);
+    text-decoration: none;
     padding: 0.5rem 0;
     transition: color 0.3s var(--ease-quiet);
     position: relative;
@@ -1699,18 +1320,15 @@
   .cta-micro::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
     background: var(--text);
     transition: width 0.4s var(--ease-quiet);
   }
   .cta-micro:hover { color: var(--text); }
   .cta-micro:hover::after { width: 100%; }
   .cta-micro svg {
-    width: 14px;
-    height: 8px;
+    width: 14px; height: 8px;
     stroke: currentColor;
     fill: none;
     stroke-width: 1.2;
@@ -1720,21 +1338,17 @@
 
   @media (max-width: 768px) {
     .cta-magnetic {
-      padding: 1.05rem 2rem;
-      font-size: 0.8rem;
+      padding: 1.1rem 2rem;
+      font-size: 0.85rem;
       gap: 1rem;
-      letter-spacing: 0.18em;
     }
     .cta-magnetic.cta-large {
-      padding: 1.3rem 2.4rem;
-      font-size: 0.95rem;
+      padding: 1.4rem 2.5rem;
+      font-size: 1rem;
     }
   }
 
-  /* ==============================================
-     SAKLAR LAMPU (TOGGLE TEMA)
-     Komponen interaktif untuk beralih mode terang/gelap
-     ============================================== */
+  /* ============== LAMP SWITCH SECTION ============== */
   .lamp-section {
     padding: 8rem 2.5rem;
     border-top: 1px solid var(--line);
@@ -1750,7 +1364,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.6rem;
+    gap: 1.8rem;
     position: relative;
     z-index: 2;
   }
@@ -1761,9 +1375,9 @@
     color: var(--text-mute);
   }
   .lamp-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     line-height: 1;
     letter-spacing: -0.01em;
   }
@@ -1772,7 +1386,7 @@
     color: var(--text-mute);
   }
   .lamp-desc {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     line-height: 1.7;
     color: var(--text-mute);
     max-width: 28rem;
@@ -1785,9 +1399,9 @@
     margin: 2rem 0 1rem;
   }
   .lamp-label {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     letter-spacing: 0.45em;
     text-transform: uppercase;
     color: var(--text-faint);
@@ -1811,10 +1425,10 @@
     box-shadow: 0 0 0 3px var(--text-faint);
   }
   .lamp-track {
-    width: 84px;
-    height: 230px;
+    width: 88px;
+    height: 240px;
     background: var(--bg-card);
-    border-radius: 42px;
+    border-radius: 44px;
     position: relative;
     padding: 9px;
     transition: background 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet), box-shadow 0.4s var(--ease-quiet);
@@ -1835,11 +1449,11 @@
     width: 22px;
     height: 1px;
     background: var(--text-faint);
-    opacity: 0.3;
+    opacity: 0.35;
   }
   .lamp-handle {
-    width: 66px;
-    height: 66px;
+    width: 70px;
+    height: 70px;
     background: var(--text);
     border-radius: 50%;
     position: absolute;
@@ -1853,7 +1467,7 @@
     box-shadow: var(--handle-shadow);
   }
   [data-theme="dark"] .lamp-handle {
-    top: calc(100% - 75px);
+    top: calc(100% - 79px);
   }
   .lamp-handle-inner {
     width: 18px;
@@ -1868,9 +1482,9 @@
     box-shadow: 0 0 12px rgba(242, 237, 231, 0.5);
   }
   .lamp-status {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--text-mute);
@@ -1888,11 +1502,12 @@
     display: inline-block;
   }
   [data-theme="dark"] .lamp-status::before {
+    background: var(--text);
     box-shadow: 0 0 10px var(--text);
   }
   .lamp-watermark {
     position: absolute;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 200;
     font-size: clamp(8rem, 18vw, 16rem);
     color: var(--text);
@@ -1909,71 +1524,16 @@
   }
   @media (max-width: 768px) {
     .lamp-section { padding: 5rem 1.5rem; }
-    .lamp-track { width: 72px; height: 190px; border-radius: 36px; padding: 8px; }
-    .lamp-handle { width: 56px; height: 56px; }
-    [data-theme="dark"] .lamp-handle { top: calc(100% - 64px); }
+    .lamp-track { width: 76px; height: 200px; border-radius: 38px; padding: 8px; }
+    .lamp-handle { width: 60px; height: 60px; }
+    [data-theme="dark"] .lamp-handle { top: calc(100% - 68px); }
     .lamp-handle-inner { width: 16px; height: 16px; }
     .lamp-track-marks span { width: 18px; }
     .lamp-switch-wrapper { gap: 1rem; margin: 1.5rem 0 0.5rem; }
-    .lamp-container { gap: 1.3rem; }
+    .lamp-container { gap: 1.4rem; }
   }
 
-  /* ==============================================
-     TOMBOL KEMBALI KE ATAS
-     Muncul setelah melewati hero
-     ============================================== */
-  .back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--line);
-    background: color-mix(in srgb, var(--bg) 90%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 90;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.4s var(--ease-quiet);
-    border-radius: 50%;
-  }
-  .back-to-top.is-visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  .back-to-top:hover {
-    border-color: var(--text);
-    transform: translateY(-3px);
-  }
-  .back-to-top svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  @media (max-width: 768px) {
-    .back-to-top {
-      bottom: 1.5rem;
-      right: 1.5rem;
-      width: 40px;
-      height: 40px;
-    }
-  }
-
-  /* ==============================================
-     FOOTER
-     ============================================== */
+  /* ============== FOOTER ============== */
   .footer {
     padding: 3rem 2.5rem;
     border-top: 1px solid var(--line);
@@ -1981,14 +1541,14 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
     align-items: center;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--text-faint);
   }
   .footer-center {
     text-align: center;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald';
     font-weight: 300;
   }
   .footer-right { text-align: right; }
@@ -1996,15 +1556,13 @@
     .footer {
       grid-template-columns: 1fr;
       text-align: center;
-      gap: 0.7rem;
+      gap: 0.8rem;
       padding: 2rem 1.5rem;
     }
     .footer-right { text-align: center; }
   }
 
-  /* ==============================================
-     ANIMASI FADE-UP
-     ============================================== */
+  /* ============== FADE UP ============== */
   .fade-up {
     opacity: 0;
     transform: translateY(40px);
@@ -2016,10 +1574,6 @@
     transform: none;
   }
 
-  /* ==============================================
-     REDUKSI GERAK
-     Menghormati preferensi pengguna untuk mengurangi animasi
-     ============================================== */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -2030,55 +1584,32 @@
     .fade-up { opacity: 1; transform: none; }
     .noise-overlay { animation: none; }
     .marquee-track { animation: none; }
-    .preloader { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- Preloader -->
-<div class="preloader" id="preloader">
-  <div class="preloader-content">
-    <div class="preloader-name">David Firdaus</div>
-    <div class="preloader-bar"><div class="preloader-fill"></div></div>
-    <div class="preloader-meta">Portofolio · 2026</div>
-  </div>
-</div>
-
-<!-- Overlay noise -->
 <div class="noise-overlay"></div>
-
-<!-- Kursor kustom -->
 <div class="cursor-dot"></div>
 <div class="cursor-ring"></div>
 
-<!-- Indikator progres gulir -->
-<div class="scroll-progress" id="scroll-progress"></div>
-
-<!-- Navigasi -->
+<!-- ============== NAV ============== -->
 <nav class="nav">
-  <a href="#" class="nav-logo">David Firdaus <span>/ 2026</span></a>
+  <div class="nav-logo">David Firdaus <span>/ 2026</span></div>
   <ul class="nav-menu">
-    <li><a href="#about" data-nav-link>Tentang</a></li>
-    <li><a href="#expertise" data-nav-link>Keahlian</a></li>
-    <li><a href="#works" data-nav-link>Karya</a></li>
-    <li><a href="#tontonan" data-nav-link>Tontonan</a></li>
-    <li><a href="#contact" data-nav-link>Kontak</a></li>
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#expertise">Keahlian</a></li>
+    <li><a href="#works">Karya</a></li>
+    <li><a href="#tontonan">Tontonan</a></li>
+    <li><a href="#contact">Kontak</a></li>
   </ul>
-  <div class="nav-actions">
-    <div class="nav-meta">Portofolio · Web Dev</div>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Ganti tema terang/gelap" title="Ganti tema">
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu navigasi">
-      <span></span>
-      <span></span>
-    </button>
-  </div>
+  <div class="nav-meta">Portofolio · Web Dev</div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu">
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
-<!-- Overlay menu mobile -->
 <div class="nav-overlay" id="nav-overlay">
   <ul>
     <li><a href="#about">Tentang</a></li>
@@ -2089,7 +1620,7 @@
   </ul>
 </div>
 
-<!-- Hero -->
+<!-- ============== HERO ============== -->
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-text">
@@ -2112,7 +1643,7 @@
         </div>
         <div>
           <span>Tahun</span>
-          <strong>2026</strong>
+          <strong>2025</strong>
         </div>
       </div>
 
@@ -2124,8 +1655,8 @@
             <span class="cta-text-clone">Kunjungi website</span>
           </span>
           <span class="cta-arrow">
-            <svg viewBox="0 0 30 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
-            <svg viewBox="0 0 30 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
+            <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
+            <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
           </span>
         </a>
       </div>
@@ -2133,20 +1664,19 @@
 
     <div class="hero-portrait">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
-        <span class="placeholder-hint">Rasio 4:5 · 800 × 1000px</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto kamu di sini</span>
+        <span class="placeholder-hint">Rasio 4:5 · 800 × 1000px<br>Ganti div ini dengan tag &lt;img&gt;</span>
       </div>
     </div>
   </div>
-
-  <div class="hero-scroll-cue">
-    <span>Gulirkan</span>
-    <div class="hero-scroll-cue-line"></div>
-  </div>
 </section>
 
-<!-- Marquee -->
+<!-- ============== MARQUEE ============== -->
 <div class="marquee">
   <div class="marquee-track">
     <div class="marquee-item">Web Development</div>
@@ -2164,33 +1694,33 @@
   </div>
 </div>
 
-<!-- Indeks / Statistik -->
+<!-- ============== INDEX ============== -->
 <section class="index">
   <div class="index-grid">
     <div class="index-item fade-up">
-      <div class="index-number" data-count="6" data-suffix="">0</div>
+      <div class="index-number">06</div>
       <div class="index-label">Proyek Pribadi</div>
-      <div class="index-desc">DF Bank, DF University, DF Komik, DF Links, DF Scenery.</div>
+      <div class="index-desc">DF Bank, DF University, DF Komik, DF Links, DF Bank, DF Scenery.</div>
     </div>
     <div class="index-item fade-up">
-      <div class="index-number" data-count="10" data-suffix="+">0</div>
+      <div class="index-number">10+</div>
       <div class="index-label">Teknologi</div>
       <div class="index-desc">HTML, CSS, JS, PHP, MySQL, Cloudflare, API.</div>
     </div>
     <div class="index-item fade-up">
-      <div class="index-number" data-count="1" data-suffix="">0</div>
+      <div class="index-number">01</div>
       <div class="index-label">Fokus Utama</div>
       <div class="index-desc">Membangun produk digital cepat dan fungsional.</div>
     </div>
     <div class="index-item fade-up">
       <div class="index-number">∞</div>
       <div class="index-label">Rasa Ingin Tahu</div>
-      <div class="index-desc">Terus belajar dan mengeksplorasi hal baru.</div>
+      <div class="index-desc">Terus belajar dan meng eksplorasi hal baru.</div>
     </div>
   </div>
 </section>
 
-<!-- Tentang -->
+<!-- ============== ABOUT ============== -->
 <section id="about">
   <div class="section-header">
     <div class="section-number fade-up">No. 01</div>
@@ -2201,9 +1731,13 @@
   <div class="about-grid">
     <div class="about-photo fade-up">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
-        <span class="placeholder-hint">Hitam-putih · Rasio 4:5</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto kamu di sini</span>
+        <span class="placeholder-hint">Hitam-putih · Rasio 4:5<br>Untuk seksi Tentang</span>
       </div>
     </div>
 
@@ -2232,7 +1766,7 @@
   </div>
 </section>
 
-<!-- Keahlian -->
+<!-- ============== EXPERTISE ============== -->
 <section id="expertise">
   <div class="section-header">
     <div class="section-number fade-up">No. 02</div>
@@ -2280,7 +1814,7 @@
   </div>
 </section>
 
-<!-- Karya (Gulir Horizontal) -->
+<!-- ============== WORKS (HORIZONTAL PIN) ============== -->
 <section id="works" class="works-section">
   <div class="works-header">
     <div class="section-header">
@@ -2301,8 +1835,12 @@
           <div class="work-card-meta"><span>No. 01</span><span>Web App</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <span class="placeholder-label">Tambah foto</span>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
           </div>
@@ -2314,8 +1852,12 @@
           <div class="work-card-meta"><span>No. 02</span><span>Sistem</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <span class="placeholder-label">Tambah foto</span>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
           </div>
@@ -2327,8 +1869,12 @@
           <div class="work-card-meta"><span>No. 03</span><span>Web App</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              <span class="placeholder-label">Tambah foto</span>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span class="placeholder-label">Tambah foto karya</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
           </div>
@@ -2340,7 +1886,11 @@
           <div class="work-card-meta"><span>No. 04</span><span>Eksperimen</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
               <span class="placeholder-label">Tambah foto karya</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
@@ -2359,7 +1909,7 @@
   </div>
 </section>
 
-<!-- Galeri Mosik -->
+<!-- ============== GALLERY (MOSAIC) ============== -->
 <section class="gallery-section">
   <div class="section-header">
     <div class="section-number fade-up">No. 04</div>
@@ -2370,50 +1920,74 @@
   <div class="gallery-grid" id="gallery-grid">
     <div class="gallery-tile t1">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
         <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">DF Komik</div>
     </div>
     <div class="gallery-tile t2">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">DF Links</div>
     </div>
     <div class="gallery-tile t3">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">DF Bank</div>
     </div>
     <div class="gallery-tile t4">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">DF Scenery</div>
     </div>
     <div class="gallery-tile t5">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">UI / UX</div>
     </div>
     <div class="gallery-tile t6">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span class="placeholder-label">Tambah foto</span>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">Telegram Bot</div>
     </div>
   </div>
 </section>
 
-<!-- Tontonan (Video) -->
+<!-- ============== TONTONAN (VIDEO) ============== -->
 <section id="tontonan" class="tontonan">
   <div class="section-header">
     <div class="section-number fade-up">No. 05</div>
@@ -2428,7 +2002,7 @@
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </div>
         <span class="placeholder-label">Tambah video YouTube utama di sini</span>
-        <span class="placeholder-hint">iframe YouTube<br>Format: https://www.youtube.com/embed/VIDEO_ID</span>
+        <span class="placeholder-hint">Ganti div ini dengan iframe YouTube<br>Format: https://www.youtube.com/embed/VIDEO_ID</span>
       </div>
     </div>
 
@@ -2447,7 +2021,7 @@
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </div>
           <span class="placeholder-label">Tambah video YouTube</span>
-          <span class="placeholder-hint">iframe</span>
+          <span class="placeholder-hint">Ganti dengan iframe</span>
         </div>
       </div>
       <div class="video-card-meta">
@@ -2464,7 +2038,7 @@
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </div>
           <span class="placeholder-label">Tambah video YouTube</span>
-          <span class="placeholder-hint">iframe</span>
+          <span class="placeholder-hint">Ganti dengan iframe</span>
         </div>
       </div>
       <div class="video-card-meta">
@@ -2481,7 +2055,7 @@
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </div>
           <span class="placeholder-label">Tambah video YouTube</span>
-          <span class="placeholder-hint">iframe</span>
+          <span class="placeholder-hint">Ganti dengan iframe</span>
         </div>
       </div>
       <div class="video-card-meta">
@@ -2493,7 +2067,7 @@
   </div>
 </section>
 
-<!-- Filosofi -->
+<!-- ============== PHILOSOPHY ============== -->
 <section class="philosophy">
   <div class="watermark watermark-right">DEV</div>
   <p class="philosophy-quote fade-up">
@@ -2502,7 +2076,7 @@
   <div class="philosophy-attribute fade-up">— Filosofi Pengembangan, 2026</div>
 </section>
 
-<!-- Kontak -->
+<!-- ============== CONTACT ============== -->
 <section id="contact" class="contact">
   <div class="contact-grid">
     <div>
@@ -2521,15 +2095,15 @@
             <span class="cta-text-clone">Buka website saya</span>
           </span>
           <span class="cta-arrow">
-            <svg viewBox="0 0 38 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
-            <svg viewBox="0 0 38 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
+            <svg viewBox="0 0 38 14"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
+            <svg viewBox="0 0 38 14"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
           </span>
         </a>
       </div>
 
       <a href="https://v1dflinks.gt.tc/" target="_blank" rel="noopener" class="cta-micro fade-up">
         atau jelajahi arsip lengkap
-        <svg viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 4h12M9 1l3 3-3 3"/></svg>
+        <svg viewBox="0 0 14 8"><path d="M0 4h12M9 1l3 3-3 3"/></svg>
       </a>
     </div>
 
@@ -2562,20 +2136,20 @@
   </div>
 </section>
 
-<!-- Saklar Lampu (Toggle Tema) -->
+<!-- ============== LAMP SWITCH (SAKLER LAMPU) ============== -->
 <section class="lamp-section">
   <div class="lamp-watermark" id="lamp-watermark">TERANG</div>
   <div class="lamp-container">
     <div class="lamp-eyebrow fade-up">No. 07 — Preferensi</div>
     <h2 class="lamp-title fade-up">Saklar <span class="italic">cahaya.</span></h2>
     <p class="lamp-desc fade-up">
-      Pilih suasana yang sesuai. Tarik tuas ke bawah untuk mode gelap,
-      dorong ke atas untuk mode terang. Preferensi akan tersimpan secara otomatis.
+      Pilih suasana yang kamu suka. Tarik tuas ke bawah untuk mode gelap,
+      dorong ke atas untuk mode terang. Pilihanmu akan tersimpan.
     </p>
 
     <div class="lamp-switch-wrapper fade-up">
       <div class="lamp-label is-active" id="lamp-label-light">Terang</div>
-      <button class="lamp-switch" id="lamp-switch" aria-label="Beralih mode terang/gelap" aria-pressed="false">
+      <button class="lamp-switch" id="lamp-switch" aria-label="Toggle dark mode" aria-pressed="false">
         <div class="lamp-track">
           <div class="lamp-track-marks">
             <span></span><span></span><span></span>
@@ -2592,12 +2166,7 @@
   </div>
 </section>
 
-<!-- Tombol Kembali ke Atas -->
-<button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
-
-<!-- Footer -->
+<!-- ============== FOOTER ============== -->
 <footer class="footer">
   <div class="footer-left">© 2026 — David Firdaus</div>
   <div class="footer-center">Designed & Developed by David Firdaus</div>
@@ -2605,159 +2174,81 @@
 </footer>
 
 <script>
-  /* ==============================================
-     MODUL: PRELOADER
-     Menampilkan animasi pemuatan halaman pada saat dokumen dimuat
-     ============================================== */
-  (function() {
-    const preloader = document.getElementById('preloader');
-    if (!preloader) return;
-
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        preloader.classList.add('is-loaded');
-      }, 600);
-    });
-
-    // Fallback jika event load terlalu lama
-    setTimeout(() => {
-      preloader.classList.add('is-loaded');
-    }, 3000);
-  })();
-
-  /* ==============================================
-     MODUL: MANAJEMEN TEMA
-     Mengelola perubahan tema terang/gelap dengan sinkronisasi
-     antara saklar lampu dan tombol tema pada navigasi
-     ============================================== */
+  // ==============================================
+  // THEME (DARK/LIGHT) — SAKLAR LAMPU
+  // ==============================================
   (function() {
     const html = document.documentElement;
     const lampSwitch = document.getElementById('lamp-switch');
-    const themeToggle = document.getElementById('theme-toggle');
     const labelLight = document.getElementById('lamp-label-light');
     const labelDark = document.getElementById('lamp-label-dark');
     const lampStatus = document.getElementById('lamp-status');
     const lampWatermark = document.getElementById('lamp-watermark');
 
-    // Memuat tema tersimpan atau mendeteksi preferensi sistem
     let savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
       savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     applyTheme(savedTheme);
 
-    /**
-     * Menerapkan tema dan memperbarui seluruh elemen antarmuka terkait
-     * @param {string} theme - Nilai tema ('light' atau 'dark')
-     */
     function applyTheme(theme) {
       html.setAttribute('data-theme', theme);
       const isDark = theme === 'dark';
-
-      // Memperbarui status saklar lampu
       lampSwitch.setAttribute('aria-pressed', isDark);
       labelLight.classList.toggle('is-active', !isDark);
       labelDark.classList.toggle('is-active', isDark);
       lampStatus.textContent = isDark ? 'Mode aktif: Gelap' : 'Mode aktif: Terang';
       lampWatermark.textContent = isDark ? 'GELAP' : 'TERANG';
-
-      // Memperbarui tombol tema pada navigasi
-      themeToggle.setAttribute('aria-pressed', isDark);
     }
 
-    /**
-     * Mengubah tema antara terang dan gelap
-     */
-    function toggleTheme() {
+    lampSwitch.addEventListener('click', () => {
       const current = html.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
       applyTheme(next);
       localStorage.setItem('theme', next);
-    }
-
-    // Mendaftarkan event listener untuk kedua kontrol tema
-    themeToggle.addEventListener('click', toggleTheme);
-    lampSwitch.addEventListener('click', toggleTheme);
+    });
 
     lampSwitch.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        toggleTheme();
+        lampSwitch.click();
       }
     });
   })();
 
-  /* ==============================================
-     MODUL: NAVIGASI
-     Mengatur menu mobile, deteksi bagian aktif, dan gulir halus
-     ============================================== */
+  // ==============================================
+  // MOBILE NAV (HAMBURGER)
+  // ==============================================
   (function() {
     const toggle = document.getElementById('nav-toggle');
     const overlay = document.getElementById('nav-overlay');
+    if (!toggle || !overlay) return;
 
-    // Mengatur menu mobile (hamburger)
-    if (toggle && overlay) {
-      function closeNav() {
-        toggle.classList.remove('is-open');
-        overlay.classList.remove('is-open');
-        document.body.style.overflow = '';
-      }
-
-      toggle.addEventListener('click', () => {
-        const isOpen = toggle.classList.toggle('is-open');
-        overlay.classList.toggle('is-open', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-      });
-
-      overlay.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeNav);
-      });
+    function closeNav() {
+      toggle.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
     }
 
-    // Deteksi bagian aktif untuk penyorotan navigasi
-    const navLinks = document.querySelectorAll('[data-nav-link]');
-    const sections = document.querySelectorAll('section[id]');
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.classList.toggle('is-open');
+      overlay.classList.toggle('is-open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
 
-    if (navLinks.length && sections.length) {
-      const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
-            });
-          }
-        });
-      }, { threshold: 0.3, rootMargin: '-20% 0px -50% 0px' });
-
-      sections.forEach(section => navObserver.observe(section));
-    }
-
-    // Gulir halus untuk tautan jangkar
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href === '#' || href.length <= 1) return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeNav);
     });
   })();
 
-  /* ==============================================
-     MODUL: KURSOR KUSTOM
-     Titik dan cincin yang mengikuti pergerakan mouse (desktop)
-     ============================================== */
+  // ==============================================
+  // CUSTOM CURSOR (desktop only)
+  // ==============================================
   (function() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
-    if (!dot || !ring) return;
-
     let mx = 0, my = 0, rx = 0, ry = 0;
 
     window.addEventListener('mousemove', e => {
@@ -2775,7 +2266,6 @@
       }
     });
 
-    // Animasi cincin dengan interpolasi untuk efek trailing
     function tick() {
       rx += (mx - rx) * 0.15;
       ry += (my - ry) * 0.15;
@@ -2784,8 +2274,7 @@
     }
     tick();
 
-    // Memperbesar cincin pada elemen interaktif
-    const hoverables = 'a, button, .work-card, .gallery-tile, .video-frame, .video-card, .expertise-item, .photo-placeholder, .lamp-switch, .theme-toggle, .back-to-top';
+    const hoverables = 'a, button, .work-card, .gallery-tile, .video-frame, .expertise-item, .photo-placeholder, .lamp-switch';
     document.querySelectorAll(hoverables).forEach(el => {
       el.addEventListener('mouseenter', () => {
         ring.style.width = '60px';
@@ -2798,50 +2287,9 @@
     });
   })();
 
-  /* ==============================================
-     MODUL: INDIKATOR PROGRES GULIR
-     Bar tipis di bagian atas halaman yang menunjukkan progres
-     ============================================== */
-  (function() {
-    const progress = document.getElementById('scroll-progress');
-    const backToTop = document.getElementById('back-to-top');
-    if (!progress) return;
-
-    let ticking = false;
-
-    function updateProgress() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      progress.style.width = percent + '%';
-
-      // Menampilkan tombol kembali ke atas setelah melewati hero
-      if (backToTop) {
-        backToTop.classList.toggle('is-visible', scrollTop > window.innerHeight * 0.8);
-      }
-
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(updateProgress);
-        ticking = true;
-      }
-    }, { passive: true });
-
-    // Event listener untuk tombol kembali ke atas
-    if (backToTop) {
-      backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  })();
-
-  /* ==============================================
-     MODUL: ANIMASI PEMBUKAAN HERO
-     Animasi pengungkapan teks judul hero dengan efek masker
-     ============================================== */
+  // ==============================================
+  // HERO LINE MASK REVEAL
+  // ==============================================
   window.addEventListener('load', () => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.querySelectorAll('.line').forEach(el => el.style.transform = 'translateY(0)');
@@ -2849,23 +2297,21 @@
     }
 
     if (typeof gsap !== 'undefined') {
-      gsap.to('[data-line1]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.8 });
-      gsap.to('[data-line2]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.95 });
+      gsap.to('[data-line1]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.3 });
+      gsap.to('[data-line2]', { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: 0.45 });
     } else {
-      // Fallback jika GSAP tidak tersedia
       document.querySelectorAll('.line').forEach((el, i) => {
         setTimeout(() => {
           el.style.transition = 'transform 1.2s cubic-bezier(.22,1,.36,1)';
           el.style.transform = 'translateY(0)';
-        }, 800 + i * 150);
+        }, 300 + i * 150);
       });
     }
   });
 
-  /* ==============================================
-     MODUL: ANIMASI FADE-UP
-     Mengamati elemen dan menerapkan animasi fade-up saat masuk viewport
-     ============================================== */
+  // ==============================================
+  // FADE UP ON SCROLL
+  // ==============================================
   (function() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -2879,58 +2325,9 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   })();
 
-  /* ==============================================
-     MODUL: ANIMASI HITUNG NAIK
-     Menganimasikan angka statistik dari nol ke nilai target
-     ============================================== */
-  (function() {
-    const countElements = document.querySelectorAll('[data-count]');
-    if (!countElements.length) return;
-
-    const countObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCountUp(entry.target);
-          countObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    countElements.forEach(el => countObserver.observe(el));
-
-    /**
-     * Menganimasikan angka dari 0 ke nilai target dengan easing
-     * @param {HTMLElement} el - Elemen yang berisi angka
-     */
-    function animateCountUp(el) {
-      const target = parseInt(el.dataset.count, 10);
-      const suffix = el.dataset.suffix || '';
-      const duration = 1800;
-      const startTime = performance.now();
-
-      function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // Easing: ease-out quartic
-        const eased = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(eased * target);
-        el.textContent = current + suffix;
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        } else {
-          el.textContent = target + suffix;
-        }
-      }
-
-      requestAnimationFrame(update);
-    }
-  })();
-
-  /* ==============================================
-     MODUL: GULIR HORIZONTAL PINNED
-     Mengonversi gulir vertikal menjadi gulir horizontal pada Karya (desktop)
-     ============================================== */
+  // ==============================================
+  // HORIZONTAL PIN SCROLL (Works) — desktop only
+  // ==============================================
   (function() {
     if (window.matchMedia('(max-width: 1024px)').matches) return;
 
@@ -2942,9 +2339,7 @@
     let scrollWidth = 0;
     let lastY = window.scrollY;
     let skewTimeout = null;
-    let ticking = false;
 
-    /** Menghitung ulang dimensi gulir horizontal */
     function recalc() {
       scrollWidth = track.scrollWidth - window.innerWidth;
       viewport.style.height = (window.innerHeight + Math.max(0, scrollWidth)) + 'px';
@@ -2952,7 +2347,7 @@
     recalc();
     window.addEventListener('resize', recalc);
 
-    function onScroll() {
+    window.addEventListener('scroll', () => {
       const rect = viewport.getBoundingClientRect();
       const top = rect.top;
 
@@ -2961,10 +2356,9 @@
         track.style.transform = `translate3d(${-p * scrollWidth}px, 0, 0)`;
         if (progressFill) progressFill.style.width = (p * 100) + '%';
 
-        // Efek skew pada kartu saat gulir cepat
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           const v = window.scrollY - lastY;
-          const skew = Math.max(-8, Math.min(8, v * 0.35));
+          const skew = Math.max(-10, Math.min(10, v * 0.4));
           track.querySelectorAll('.work-card').forEach(c => {
             c.style.transform = `skewX(${skew}deg)`;
           });
@@ -2984,21 +2378,12 @@
       }
 
       lastY = window.scrollY;
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(onScroll);
-        ticking = true;
-      }
     }, { passive: true });
   })();
 
-  /* ==============================================
-     MODUL: GALERI MOSAIK
-     Efek hover push-back pada galeri mosik (desktop)
-     ============================================== */
+  // ==============================================
+  // GRAYSCALE MOSAIC PUSH-BACK (desktop only)
+  // ==============================================
   (function() {
     if (window.matchMedia('(max-width: 900px)').matches) return;
     const grid = document.getElementById('gallery-grid');
@@ -3010,10 +2395,9 @@
     });
   })();
 
-  /* ==============================================
-     MODUL: TOMBOL MAGNETIK
-     Efek magnetik pada tombol CTA yang mengikuti posisi mouse (desktop)
-     ============================================== */
+  // ==============================================
+  // MAGNETIC CTA BUTTONS
+  // ==============================================
   (function() {
     if (window.matchMedia('(pointer: coarse)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -3046,6 +2430,19 @@
       });
     });
   })();
+
+  // ==============================================
+  // SMOOTH SCROLL ANCHOR LINKS
+  // ==============================================
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 </script>
 </body>
 </html>
