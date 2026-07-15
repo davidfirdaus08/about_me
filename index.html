@@ -24,19 +24,14 @@
     --text-mute: #535353;
     --text-faint: #9a948c;
     --line: #ddd6cc;
-    --line-soft: #e8e2d8;
     --inverse: #ffffff;
     --tontonan-bg: #1a1a1a;
     --tontonan-border: rgba(255, 255, 255, 0.1);
     --noise-opacity: 0.035;
     --handle-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --card-shadow: 0 2px 30px rgba(0, 0, 0, 0.04);
     --card-shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.08);
     --radius-sm: 2px;
-    --radius-md: 4px;
-    --radius-lg: 8px;
     --ease-quiet: cubic-bezier(.22, 1, .36, 1);
-    --ease-precise: cubic-bezier(.4, 0, .2, 1);
     --ease-emphasis: cubic-bezier(.16, 1, .3, 1);
     --nav-height: 72px;
   }
@@ -50,13 +45,11 @@
     --text-mute: #a8a39d;
     --text-faint: #6e6963;
     --line: #2a2a2a;
-    --line-soft: #222222;
     --inverse: #141414;
     --tontonan-bg: #0a0a0a;
     --tontonan-border: rgba(255, 255, 255, 0.08);
     --noise-opacity: 0.05;
     --handle-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(242, 237, 231, 0.12);
-    --card-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
     --card-shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.5);
   }
 
@@ -86,6 +79,12 @@
     transition: background 0.6s var(--ease-quiet), color 0.6s var(--ease-quiet);
   }
 
+  /* Mencegah warna default tautan browser dan menonaktifkan dekorasi */
+  a, a:visited {
+    color: inherit;
+    text-decoration: none;
+  }
+
   /* Kursor kustom hanya untuk perangkat dengan pointer presisi */
   @media (pointer: fine) {
     body { cursor: none; }
@@ -98,12 +97,12 @@
   }
 
   /* Fokus keyboard untuk aksesibilitas */
+  :focus {
+    outline: none;
+  }
   :focus-visible {
     outline: 2px solid var(--text);
     outline-offset: 3px;
-  }
-  :focus:not(:focus-visible) {
-    outline: none;
   }
 
   /* Offset jangkar untuk kompensasi navigasi tetap */
@@ -269,7 +268,6 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--text);
-    text-decoration: none;
     white-space: nowrap;
   }
   .nav-logo span { color: var(--text-faint); }
@@ -284,7 +282,6 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-mute);
-    text-decoration: none;
     transition: color 0.3s var(--ease-quiet);
     position: relative;
     padding: 0.3rem 0;
@@ -419,7 +416,6 @@
     font-weight: 200;
     font-size: clamp(2rem, 8vw, 3rem);
     color: var(--text);
-    text-decoration: none;
     letter-spacing: 0.02em;
     display: inline-block;
     transition: transform 0.5s var(--ease-quiet), font-style 0.3s var(--ease-quiet);
@@ -1155,7 +1151,7 @@
     overflow: hidden;
     transition: transform 0.7s var(--ease-emphasis), opacity 0.7s var(--ease-emphasis);
     transform-origin: center center;
-    border-radius: var(--radius-sm;
+    border-radius: var(--radius-sm);
   }
   .gallery-tile.t1 { grid-column: span 5; grid-row: span 5; }
   .gallery-tile.t2 { grid-column: span 4; grid-row: span 3; }
@@ -1532,7 +1528,6 @@
     font-weight: 300;
     font-size: 1.05rem;
     color: var(--text);
-    text-decoration: none;
     transition: color 0.3s var(--ease-quiet);
     position: relative;
     display: inline-block;
@@ -1586,7 +1581,6 @@
     background: transparent;
     border: 1px solid var(--text);
     color: var(--text);
-    text-decoration: none;
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
     font-size: 0.9rem;
@@ -1596,7 +1590,7 @@
     transition: color 0.6s var(--ease-quiet), border-color 0.6s var(--ease-quiet);
     will-change: transform;
     isolation: isolate;
-    border-radius: var(--radius-sm;
+    border-radius: var(--radius-sm);
   }
 
   /* Sapuan latar belakang pada hover */
@@ -1698,7 +1692,6 @@
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--text-mute);
-    text-decoration: none;
     padding: 0.5rem 0;
     transition: color 0.3s var(--ease-quiet);
     position: relative;
@@ -2075,8 +2068,8 @@
   <div class="nav-actions">
     <div class="nav-meta">Portofolio · Web Dev</div>
     <button class="theme-toggle" id="theme-toggle" aria-label="Ganti tema terang/gelap" title="Ganti tema">
-      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
     <button class="nav-toggle" id="nav-toggle" aria-label="Buka menu navigasi">
       <span></span>
@@ -2131,8 +2124,8 @@
             <span class="cta-text-clone">Kunjungi website</span>
           </span>
           <span class="cta-arrow">
-            <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
-            <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
+            <svg viewBox="0 0 30 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
+            <svg viewBox="0 0 30 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 6h26M20 1l5 5-5 5"/></svg>
           </span>
         </a>
       </div>
@@ -2140,11 +2133,7 @@
 
     <div class="hero-portrait">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
         <span class="placeholder-hint">Rasio 4:5 · 800 × 1000px</span>
       </div>
@@ -2212,11 +2201,7 @@
   <div class="about-grid">
     <div class="about-photo fade-up">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
         <span class="placeholder-hint">Hitam-putih · Rasio 4:5</span>
       </div>
@@ -2316,11 +2301,7 @@
           <div class="work-card-meta"><span>No. 01</span><span>Web App</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               <span class="placeholder-label">Tambah foto</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
@@ -2333,11 +2314,7 @@
           <div class="work-card-meta"><span>No. 02</span><span>Sistem</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               <span class="placeholder-label">Tambah foto</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
@@ -2350,11 +2327,7 @@
           <div class="work-card-meta"><span>No. 03</span><span>Web App</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               <span class="placeholder-label">Tambah foto</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
@@ -2367,11 +2340,7 @@
           <div class="work-card-meta"><span>No. 04</span><span>Eksperimen</span></div>
           <div class="work-card-image">
             <div class="photo-placeholder">
-              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <rect x="3" y="3" width="18" height="18"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
+              <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               <span class="placeholder-label">Tambah foto karya</span>
               <span class="placeholder-hint">Rasio 3:4</span>
             </div>
@@ -2401,66 +2370,42 @@
   <div class="gallery-grid" id="gallery-grid">
     <div class="gallery-tile t1">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto di sini</span>
       </div>
       <div class="gallery-tile-label">DF Komik</div>
     </div>
     <div class="gallery-tile t2">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
       </div>
       <div class="gallery-tile-label">DF Links</div>
     </div>
     <div class="gallery-tile t3">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
       </div>
       <div class="gallery-tile-label">DF Bank</div>
     </div>
     <div class="gallery-tile t4">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
       </div>
       <div class="gallery-tile-label">DF Scenery</div>
     </div>
     <div class="gallery-tile t5">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
       </div>
       <div class="gallery-tile-label">UI / UX</div>
     </div>
     <div class="gallery-tile t6">
       <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <rect x="3" y="3" width="18" height="18"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span class="placeholder-label">Tambah foto</span>
       </div>
       <div class="gallery-tile-label">Telegram Bot</div>
@@ -2576,15 +2521,15 @@
             <span class="cta-text-clone">Buka website saya</span>
           </span>
           <span class="cta-arrow">
-            <svg viewBox="0 0 38 14"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
-            <svg viewBox="0 0 38 14"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
+            <svg viewBox="0 0 38 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
+            <svg viewBox="0 0 38 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 7h32M26 1l6 6-6 6"/></svg>
           </span>
         </a>
       </div>
 
       <a href="https://v1dflinks.gt.tc/" target="_blank" rel="noopener" class="cta-micro fade-up">
         atau jelajahi arsip lengkap
-        <svg viewBox="0 0 14 8"><path d="M0 4h12M9 1l3 3-3 3"/></svg>
+        <svg viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 4h12M9 1l3 3-3 3"/></svg>
       </a>
     </div>
 
@@ -2649,7 +2594,7 @@
 
 <!-- Tombol Kembali ke Atas -->
 <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
-  <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
 <!-- Footer -->
