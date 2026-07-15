@@ -526,7 +526,22 @@
     max-width: 400px;
     margin-left: auto;
     position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
   }
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s var(--ease-quiet);
+  }
+
+  .hero-portrait:hover .hero-image {
+    transform: scale(1.04);
+  }
+
   .hero-portrait .photo-placeholder {
     height: 100%;
   }
@@ -2132,10 +2147,7 @@
     </div>
 
     <div class="hero-portrait">
-      <div class="photo-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <img src="4_5Anime.png" alt="Gambar Anime" class="hero-image">
-      </div>
+      <img src="4_5Anime.png" alt="Potret David Firdaus" class="hero-image">
     </div>
   </div>
 
